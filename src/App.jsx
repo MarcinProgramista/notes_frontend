@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Register from "./components/Register";
 
 const WrapperApp = styled.main`
   display: flex;
@@ -8,10 +9,11 @@ const WrapperApp = styled.main`
   min-height: 100vh;
   padding: 1rem 0.5rem;
 `;
+
 function App() {
   return (
     <WrapperApp>
-      <h1>Register</h1>
+      <Register />
     </WrapperApp>
   );
 }

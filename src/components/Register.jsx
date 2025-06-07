@@ -7,6 +7,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
 
+const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+
 function Register() {
   return (
     <div>

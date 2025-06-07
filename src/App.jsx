@@ -1,12 +1,19 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import styled from "styled-components";
 
+const WrapperApp = styled.main`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem 0.5rem;
+`;
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <main></main>;
+  return (
+    <WrapperApp>
+      <h1>Register</h1>
+    </WrapperApp>
+  );
 }
 
 export default App;

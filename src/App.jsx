@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Register from "./components/Register";
+import Register from "./components/Register.jsx";
 
 const WrapperApp = styled.main`
   display: flex;

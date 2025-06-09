@@ -29,6 +29,14 @@ const ParagraphError = styled.p`
   margin-bottom: ${({ $errMsg }) => ($errMsg ? "0.5rem" : "")};
 `;
 
+const FormWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  padding-bottom: 1rem;
+`;
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -88,6 +96,7 @@ function Register() {
             {errMsg}
           </ParagraphError>
           <h1>Register</h1>
+          <FormWrapper></FormWrapper>
         </SectionWrapper>
       )}
     </>

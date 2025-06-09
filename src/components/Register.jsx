@@ -42,6 +42,11 @@ function Register() {
     setvalidEmail(EMAIL_REGEX.test(email));
   }, [email]);
 
+  useEffect(() => {
+    setValidPwd(PWD_REGEX.test(pwd));
+    setValidMatch(pwd === matchPwd);
+  }, [pwd, matchPwd]);
+
   return (
     <div>
       <h1>Register</h1>

@@ -6,6 +6,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
+import styled, { css } from "styled-components";
+
+const ParagraphError = styled.p`
+  position: ${({ $errMsg }) => ($errMsg ? "" : "absolute")};
+  left: ${({ $errMsg }) => ($errMsg ? "" : "-9999px")};
+  background-color: ${({ $errMsg }) => ($errMsg ? "lightpink" : "")};
+  color: ${({ $errMsg }) => ($errMsg ? "firebrick" : "")};
+  font-weight: ${({ $errMsg }) => ($errMsg ? "bold" : "")};
+  padding: ${({ $errMsg }) => ($errMsg ? "0.5rem" : "")};
+  margin-bottom: ${({ $errMsg }) => ($errMsg ? "0.5rem" : "")};
+`;
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -31,7 +42,7 @@ function Register() {
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
 
-  const [errMsg, setErrMsg] = useState("");
+  const [errMsg, setErrMsg] = useState("asd");
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
@@ -62,6 +73,9 @@ function Register() {
         </section>
       ) : (
         <section>
+          <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
+            {errMsg}
+          </ParagraphError>
           <h1>Register</h1>
         </section>
       )}

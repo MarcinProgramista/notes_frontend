@@ -47,6 +47,10 @@ function Register() {
     setValidMatch(pwd === matchPwd);
   }, [pwd, matchPwd]);
 
+  useEffect(() => {
+    setErrMsg("");
+  }, [user, pwd, matchPwd]);
+
   return (
     <div>
       <h1>Register</h1>

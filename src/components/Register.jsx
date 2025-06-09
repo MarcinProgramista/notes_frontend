@@ -19,6 +19,10 @@ function Register() {
   const [validName, setValidName] = useState(false);
   const [userFocus, setUserFocus] = useState(false);
 
+  const [email, setEmail] = useState("");
+  const [validEmail, setvalidEmail] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
+
   const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);

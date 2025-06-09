@@ -38,6 +38,10 @@ function Register() {
     setValidName(USER_REGEX.test(user));
   }, [user]);
 
+  useEffect(() => {
+    setvalidEmail(EMAIL_REGEX.test(email));
+  }, [email]);
+
   return (
     <div>
       <h1>Register</h1>

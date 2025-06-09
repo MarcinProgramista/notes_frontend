@@ -52,9 +52,20 @@ function Register() {
   }, [user, pwd, matchPwd]);
 
   return (
-    <div>
-      <h1>Register</h1>
-    </div>
+    <>
+      {success ? (
+        <section>
+          <h1>Success!</h1>
+          <p>
+            <a href="#">Sign In</a>
+          </p>
+        </section>
+      ) : (
+        <section>
+          <h1>Register</h1>
+        </section>
+      )}
+    </>
   );
 }
 

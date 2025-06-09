@@ -8,6 +8,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../api/axios";
 import styled, { css } from "styled-components";
 
+const SectionWrapper = styled.section`
+  width: 100%;
+  max-width: 420px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.4);
+`;
+
 const ParagraphError = styled.p`
   position: ${({ $errMsg }) => ($errMsg ? "" : "absolute")};
   left: ${({ $errMsg }) => ($errMsg ? "" : "-9999px")};
@@ -42,7 +53,7 @@ function Register() {
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
 
-  const [errMsg, setErrMsg] = useState("asd");
+  const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
@@ -65,19 +76,19 @@ function Register() {
   return (
     <>
       {success ? (
-        <section>
+        <SectionWrapper>
           <h1>Success!</h1>
           <p>
             <a href="#">Sign In</a>
           </p>
-        </section>
+        </SectionWrapper>
       ) : (
-        <section>
+        <SectionWrapper>
           <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
             {errMsg}
           </ParagraphError>
           <h1>Register</h1>
-        </section>
+        </SectionWrapper>
       )}
     </>
   );

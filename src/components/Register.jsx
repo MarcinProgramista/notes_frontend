@@ -34,6 +34,10 @@ function Register() {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  useEffect(() => {
+    setValidName(USER_REGEX.test(user));
+  }, [user]);
+
   return (
     <div>
       <h1>Register</h1>

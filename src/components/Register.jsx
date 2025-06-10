@@ -370,6 +370,17 @@ function Register() {
                 $matchPwd={matchPwd}
               />
             </LabelWrapper>
+            <StyledInput
+              type="password"
+              id="confirm_pwd"
+              onChange={(e) => setMatchPwd(e.target.value)}
+              value={matchPwd}
+              required
+              aria-invalid={validMatch ? "false" : "true"}
+              aria-describedby="confirmnote"
+              onFocus={() => setMatchFocus(true)}
+              onBlur={() => setMatchFocus(false)}
+            />
           </FormWrapper>
         </SectionWrapper>
       )}

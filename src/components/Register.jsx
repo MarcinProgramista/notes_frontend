@@ -37,6 +37,10 @@ const FormWrapper = styled.form`
   padding-bottom: 1rem;
 `;
 
+const LabelWrapper = styled.label`
+  margin-top: 1rem;
+`;
+
 const StyledFontAwesomeIconHide = styled(FontAwesomeIcon)`
   color: ${({ $validName }) => ($validName ? "limegreen" : "")};
   margin-left: ${({ $validName }) => ($validName ? "0.25rem" : "")};
@@ -110,7 +114,7 @@ function Register() {
           </ParagraphError>
           <h1>Register</h1>
           <FormWrapper>
-            <label htmlFor="username">
+            <LabelWrapper htmlFor="username">
               Username:
               <StyledFontAwesomeIconHide
                 icon={faCheck}
@@ -121,7 +125,7 @@ function Register() {
                 $validName={validName}
                 $user={user}
               />
-            </label>
+            </LabelWrapper>
           </FormWrapper>
         </SectionWrapper>
       )}

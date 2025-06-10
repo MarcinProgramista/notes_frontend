@@ -133,6 +133,28 @@ const StyledFontAwesomeIconInvalidPassword = styled(FontAwesomeIcon)`
     $validPwd || !$pwd ? "0.25rem" : ""};
 `;
 
+const ParagraphPassword = styled.p`
+  position: ${({ $validPwd, $pwdFocus }) =>
+    $pwdFocus && !$validPwd ? "relative" : "absolute"};
+  left: ${({ $validPwd, $pwdFocus }) =>
+    $pwdFocus && !$validPwd ? "" : "9999px"};
+  font-size: ${({ $validPwd, $pwdFocus }) =>
+    $pwdFocus && !$validPwd ? "0.75rem" : ""};
+  border-radius: ${({ $validPwd, $pwdFocus }) =>
+    $pwdFocus && !$validPwd ? "0.5rem" : ""};
+  background: ${({ $validPwd, $pwdFocus }) =>
+    $pwdFocus && !$validPwd ? "#000" : ""};
+  color: ${({ $validPwd, $pwdFocus }) =>
+    $pwdFocus && !$validPwd ? "#fff" : ""};
+  padding: ${({ $validPwd, $pwdFocus }) =>
+    $pwdFocus && !$validPwd ? "0.25rem" : ""};
+  bottom: ${({ $validPwd, $pwdFocus }) =>
+    $pwdFocus && !$validPwd ? "-10px" : ""};
+  svg {
+    margin-right: 0.25rem;
+  }
+`;
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -299,6 +321,24 @@ function Register() {
               onFocus={() => setPwdFocus(true)}
               onBlur={() => setPwdFocus(false)}
             />
+            <ParagraphPassword
+              id="pwdnote"
+              $pwdFocus={pwdFocus}
+              $validPwd={validPwd}
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+              8 to 24 characters.
+              <br />
+              Must include uppercase and lowercase letters, a number and a
+              special character.
+              <br />
+              Allowed special characters:{" "}
+              <span aria-label="exclamation mark">!</span>{" "}
+              <span aria-label="at symbol">@</span>{" "}
+              <span aria-label="hashtag">#</span>{" "}
+              <span aria-label="dollar sign">$</span>{" "}
+              <span aria-label="percent">%</span>
+            </ParagraphPassword>
           </FormWrapper>
         </SectionWrapper>
       )}

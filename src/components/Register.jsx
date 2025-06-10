@@ -37,6 +37,12 @@ const FormWrapper = styled.form`
   padding-bottom: 1rem;
 `;
 
+const StyledFontAwesomeIconHide = styled(FontAwesomeIcon)`
+  color: ${({ $validName }) => ($validName ? "limegreen" : "")};
+  margin-left: ${({ $validName }) => ($validName ? "0.25rem" : "")};
+  display: ${({ $validName }) => ($validName ? "" : "none")};
+`;
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -96,7 +102,20 @@ function Register() {
             {errMsg}
           </ParagraphError>
           <h1>Register</h1>
-          <FormWrapper></FormWrapper>
+          <FormWrapper>
+            <label htmlFor="username">
+              Username:
+              <StyledFontAwesomeIconHide
+                icon={faCheck}
+                $validName={validName}
+                className={validName ? "valid" : "hide"}
+              />
+              <FontAwesomeIcon
+                icon={faTimes}
+                className={validName || !user ? "hide" : "invalid"}
+              />
+            </label>
+          </FormWrapper>
         </SectionWrapper>
       )}
     </>

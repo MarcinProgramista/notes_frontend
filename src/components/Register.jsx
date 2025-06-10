@@ -41,13 +41,13 @@ const LabelWrapper = styled.label`
   margin-top: 1rem;
 `;
 
-const StyledFontAwesomeIconHide = styled(FontAwesomeIcon)`
+const StyledFontAwesomeIconHideName = styled(FontAwesomeIcon)`
   color: ${({ $validName }) => ($validName ? "limegreen" : "")};
   margin-left: ${({ $validName }) => ($validName ? "0.25rem" : "")};
   display: ${({ $validName }) => ($validName ? "" : "none")};
 `;
 
-const StyledFontAwesomeIconInvalid = styled(FontAwesomeIcon)`
+const StyledFontAwesomeIconInvalidName = styled(FontAwesomeIcon)`
   display: ${({ $validName, $user }) => ($validName || !$user ? "none" : "")};
   color: ${({ $validName, $user }) => ($validName || !$user ? "" : "red")};
   margin-left: ${({ $validName, $user }) =>
@@ -82,6 +82,20 @@ const ParagraphUser = styled.p`
   svg {
     margin-right: 0.25rem;
   }
+`;
+
+const StyledFontAwesomeIconHideEmail = styled(FontAwesomeIcon)`
+  color: ${({ $validEmail }) => ($validEmail ? "limegreen" : "")};
+  margin-left: ${({ $validEmail }) => ($validEmail ? "0.25rem" : "")};
+  display: ${({ $validEmail }) => ($validEmail ? "" : "none")};
+`;
+
+const StyledFontAwesomeIconInvalidEmail = styled(FontAwesomeIcon)`
+  display: ${({ $validEmail, $email }) =>
+    $validEmail || !$email ? "none" : ""};
+  color: ${({ $validEmail, $email }) => ($validEmail || !$email ? "" : "red")};
+  margin-left: ${({ $validEmail, $email }) =>
+    $validEmail || !$email ? "0.25rem" : ""};
 `;
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -146,11 +160,11 @@ function Register() {
           <FormWrapper>
             <LabelWrapper htmlFor="username">
               Username:
-              <StyledFontAwesomeIconHide
+              <StyledFontAwesomeIconHideName
                 icon={faCheck}
                 $validName={validName}
               />
-              <StyledFontAwesomeIconInvalid
+              <StyledFontAwesomeIconInvalidName
                 icon={faTimes}
                 $validName={validName}
                 $user={user}
@@ -185,6 +199,18 @@ function Register() {
               <br />
               Letters, numbers, underscores, hyphens allowed.
             </ParagraphUser>
+            <LabelWrapper htmlFor="email">
+              Email:
+              <StyledFontAwesomeIconHideEmail
+                icon={faCheck}
+                $validEmail={validEmail}
+              />
+              <StyledFontAwesomeIconInvalidEmail
+                icon={faTimes}
+                $validEmail={validEmail}
+                $email={email}
+              />
+            </LabelWrapper>
           </FormWrapper>
         </SectionWrapper>
       )}

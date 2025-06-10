@@ -120,6 +120,19 @@ const ParagraphEmail = styled.p`
   }
 `;
 
+const StyledFontAwesomeIconHidePassword = styled(FontAwesomeIcon)`
+  color: ${({ $validPwd }) => ($validPwd ? "limegreen" : "")};
+  margin-left: ${({ $validPwd }) => ($validPwd ? "0.25rem" : "")};
+  display: ${({ $validPwd }) => ($validPwd ? "" : "none")};
+`;
+
+const StyledFontAwesomeIconInvalidPassword = styled(FontAwesomeIcon)`
+  display: ${({ $validPwd, $pwd }) => ($validPwd || !$pwd ? "none" : "")};
+  color: ${({ $validPwd, $pwd }) => ($validPwd || !$pwd ? "" : "red")};
+  margin-left: ${({ $validPwd, $pwd }) =>
+    $validPwd || !$pwd ? "0.25rem" : ""};
+`;
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -263,6 +276,29 @@ function Register() {
               top-level domain (TLD), which must consist of at least 2
               alphabetic characters.
             </ParagraphEmail>
+            <LabelWrapper htmlFor="password">
+              Password:
+              <StyledFontAwesomeIconHidePassword
+                icon={faCheck}
+                $validPwd={validPwd}
+              />
+              <StyledFontAwesomeIconInvalidPassword
+                icon={faTimes}
+                $validPwd={validPwd}
+                $pwd={pwd}
+              />
+            </LabelWrapper>
+            <StyledInput
+              type="password"
+              id="password"
+              onChange={(e) => setPwd(e.target.value)}
+              value={pwd}
+              required
+              aria-invalid={validPwd ? "false" : "true"}
+              aria-describedby="pwdnote"
+              onFocus={() => setPwdFocus(true)}
+              onBlur={() => setPwdFocus(false)}
+            />
           </FormWrapper>
         </SectionWrapper>
       )}

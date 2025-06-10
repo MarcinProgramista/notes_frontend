@@ -43,6 +43,13 @@ const StyledFontAwesomeIconHide = styled(FontAwesomeIcon)`
   display: ${({ $validName }) => ($validName ? "" : "none")};
 `;
 
+const StyledFontAwesomeIconInvalid = styled(FontAwesomeIcon)`
+  display: ${({ $validName, $user }) => ($validName || !$user ? "none" : "")};
+  color: ${({ $validName, $user }) => ($validName || !$user ? "red" : "")};
+  margin-left: ${({ $validName, $user }) =>
+    $validName || !$user ? "0.25rem" : ""};
+`;
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -108,11 +115,11 @@ function Register() {
               <StyledFontAwesomeIconHide
                 icon={faCheck}
                 $validName={validName}
-                className={validName ? "valid" : "hide"}
               />
-              <FontAwesomeIcon
+              <StyledFontAwesomeIconInvalid
                 icon={faTimes}
-                className={validName || !user ? "hide" : "invalid"}
+                $validName={validName}
+                $user={user}
               />
             </label>
           </FormWrapper>

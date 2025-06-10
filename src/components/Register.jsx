@@ -49,9 +49,17 @@ const StyledFontAwesomeIconHide = styled(FontAwesomeIcon)`
 
 const StyledFontAwesomeIconInvalid = styled(FontAwesomeIcon)`
   display: ${({ $validName, $user }) => ($validName || !$user ? "none" : "")};
-  color: ${({ $validName, $user }) => ($validName || !$user ? "red" : "")};
+  color: ${({ $validName, $user }) => ($validName || !$user ? "" : "red")};
   margin-left: ${({ $validName, $user }) =>
     $validName || !$user ? "0.25rem" : ""};
+`;
+
+const StyledInput = styled.input`
+  margin-top: 1rem;
+  font-family: "Nunito", sans-serif;
+  font-size: 22px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
 `;
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -126,6 +134,19 @@ function Register() {
                 $user={user}
               />
             </LabelWrapper>
+            <StyledInput
+              type="text"
+              id="username"
+              ref={userRef}
+              autoComplete="off"
+              onChange={(e) => setUser(e.target.value)}
+              value={user}
+              required
+              aria-invalid={validName ? "false" : "true"}
+              aria-describedby="uidnote"
+              onFocus={() => setUserFocus(true)}
+              onBlur={() => setUserFocus(false)}
+            />
           </FormWrapper>
         </SectionWrapper>
       )}

@@ -104,6 +104,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 function Register() {
   const userRef = useRef();
+  const emailRef = useRef();
   const errRef = useRef();
 
   const [user, setUser] = useState("");
@@ -211,6 +212,19 @@ function Register() {
                 $email={email}
               />
             </LabelWrapper>
+            <StyledInput
+              type="email"
+              id="email"
+              ref={emailRef}
+              autoComplete="off"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required
+              aria-invalid={validEmail ? "false" : "true"}
+              aria-describedby="uidnote"
+              onFocus={() => setEmailFocus(true)}
+              onBlur={() => setEmailFocus(false)}
+            />
           </FormWrapper>
         </SectionWrapper>
       )}

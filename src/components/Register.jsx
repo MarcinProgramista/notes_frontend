@@ -98,6 +98,28 @@ const StyledFontAwesomeIconInvalidEmail = styled(FontAwesomeIcon)`
     $validEmail || !$email ? "0.25rem" : ""};
 `;
 
+const ParagraphEmail = styled.p`
+  position: ${({ $validEmail, $email, $emailFocus }) =>
+    $emailFocus && $email && !$validEmail ? "relative" : "absolute"};
+  left: ${({ $validEmail, $email, $emailFocus }) =>
+    $emailFocus && $email && !$validEmail ? "" : "9999px"};
+  font-size: ${({ $validEmail, $email, $emailFocus }) =>
+    $emailFocus && $email && !$validEmail ? "0.75rem" : ""};
+  border-radius: ${({ $validEmail, $email, $emailFocus }) =>
+    $emailFocus && $email && !$validEmail ? "0.5rem" : ""};
+  background: ${({ $validEmail, $email, $emailFocus }) =>
+    $emailFocus && $email && !$validEmail ? "#000" : ""};
+  color: ${({ $validEmail, $email, $emailFocus }) =>
+    $emailFocus && $email && !$validEmail ? "#fff" : ""};
+  padding: ${({ $validEmail, $email, $emailFocus }) =>
+    $emailFocus && $email && !$validEmail ? "0.25rem" : ""};
+  bottom: ${({ $validEmail, $email, $emailFocus }) =>
+    $emailFocus && $email && !$validEmail ? "-10px" : ""};
+  svg {
+    margin-right: 0.25rem;
+  }
+`;
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -189,9 +211,6 @@ function Register() {
               $userFocus={userFocus}
               $user={user}
               $validName={validName}
-              className={
-                userFocus && user && !validName ? "instructions" : "offscreen"
-              }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
               4 to 24 characters.
@@ -225,6 +244,25 @@ function Register() {
               onFocus={() => setEmailFocus(true)}
               onBlur={() => setEmailFocus(false)}
             />
+            <ParagraphEmail
+              id="uidnote"
+              $emailFocus={emailFocus}
+              $email={email}
+              $validEmail={validEmail}
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+              username part of the email, allowing alphanumeric characters and
+              some special characters like ., _, %, +, and -.
+              <br />
+              Must have "@" symbol that separates the username from the domain.
+              <br />
+              Must begin with a letter.
+              <br />
+              Domain part, allowing letters, digits, dots, and hyphens
+              <br />
+              top-level domain (TLD), which must consist of at least 2
+              alphabetic characters.
+            </ParagraphEmail>
           </FormWrapper>
         </SectionWrapper>
       )}

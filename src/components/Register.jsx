@@ -62,6 +62,28 @@ const StyledInput = styled.input`
   border-radius: 0.5rem;
 `;
 
+const ParagraphUser = styled.p`
+  position: ${({ $validName, $user, $userFocus }) =>
+    $userFocus && $user && !$validName ? "relative" : "absolute"};
+  left: ${({ $validName, $user, $userFocus }) =>
+    $userFocus && $user && !$validName ? "" : "9999px"};
+  font-size: ${({ $validName, $user, $userFocus }) =>
+    $userFocus && $user && !$validName ? "0.75rem" : ""};
+  border-radius: ${({ $validName, $user, $userFocus }) =>
+    $userFocus && $user && !$validName ? "0.5rem" : ""};
+  background: ${({ $validName, $user, $userFocus }) =>
+    $userFocus && $user && !$validName ? "#000" : ""};
+  color: ${({ $validName, $user, $userFocus }) =>
+    $userFocus && $user && !$validName ? "#fff" : ""};
+  padding: ${({ $validName, $user, $userFocus }) =>
+    $userFocus && $user && !$validName ? "0.25rem" : ""};
+  bottom: ${({ $validName, $user, $userFocus }) =>
+    $userFocus && $user && !$validName ? "-10px" : ""};
+  svg {
+    margin-right: 0.25rem;
+  }
+`;
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -147,6 +169,22 @@ function Register() {
               onFocus={() => setUserFocus(true)}
               onBlur={() => setUserFocus(false)}
             />
+            <ParagraphUser
+              id="uidnote"
+              $userFocus={userFocus}
+              $user={user}
+              $validName={validName}
+              className={
+                userFocus && user && !validName ? "instructions" : "offscreen"
+              }
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+              4 to 24 characters.
+              <br />
+              Must begin with a letter.
+              <br />
+              Letters, numbers, underscores, hyphens allowed.
+            </ParagraphUser>
           </FormWrapper>
         </SectionWrapper>
       )}

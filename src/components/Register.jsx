@@ -155,6 +155,24 @@ const ParagraphPassword = styled.p`
   }
 `;
 
+const StyledFontAwesomeIconHidePasswordConfirm = styled(FontAwesomeIcon)`
+  color: ${({ $validMatch, $matchPwd }) =>
+    $validMatch && $matchPwd ? "limegreen" : ""};
+  margin-left: ${({ $validMatch, $matchPwd }) =>
+    $validMatch && $matchPwd ? "0.25rem" : ""};
+  display: ${({ $validMatch, $matchPwd }) =>
+    $validMatch && $matchPwd ? "" : "none"};
+`;
+
+const StyledFontAwesomeIconInvalidPasswordConfirm = styled(FontAwesomeIcon)`
+  display: ${({ $validMatch, $matchPwd }) =>
+    $validMatch || !$matchPwd ? "none" : ""};
+  color: ${({ $validMatch, $matchPwd }) =>
+    $validMatch || !$matchPwd ? "" : "red"};
+  margin-left: ${({ $validMatch, $matchPwd }) =>
+    $validMatch || !$matchPwd ? "0.25rem" : ""};
+`;
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -339,6 +357,19 @@ function Register() {
               <span aria-label="dollar sign">$</span>{" "}
               <span aria-label="percent">%</span>
             </ParagraphPassword>
+            <LabelWrapper htmlFor="confirm_pwd">
+              Confirm Password:
+              <StyledFontAwesomeIconHidePasswordConfirm
+                icon={faCheck}
+                $validMatch={validMatch}
+                $matchPwd={matchPwd}
+              />
+              <StyledFontAwesomeIconInvalidPasswordConfirm
+                icon={faTimes}
+                $validMatch={validMatch}
+                $matchPwd={matchPwd}
+              />
+            </LabelWrapper>
           </FormWrapper>
         </SectionWrapper>
       )}

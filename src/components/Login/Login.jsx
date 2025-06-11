@@ -32,13 +32,17 @@ const Login = () => {
     setErrMsg("");
   }, [email, pwd]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
+
   return (
     <SectionWrapper>
       <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
         {errMsg}
       </ParagraphError>
       <h1>Log In</h1>
-      <FormWrapperRegisterLogin>
+      <FormWrapperRegisterLogin onSubmit={handleSubmit}>
         <LabelWrapper htmlFor="email">Email:</LabelWrapper>
         <StyledInput
           type="email"

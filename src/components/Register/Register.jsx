@@ -10,6 +10,7 @@ import styled, { css } from "styled-components";
 import SectionWrapper from "../SectionWrapperFrom/SectionWrapper";
 import ParagraphError from "../ParagraphErrorFrom/ParagraphErrorFrom";
 import FormWrapperRegisterLogin from "../FormWrapperRegisterLogin/FormWrapperRegisterLogin";
+import StyledButtonRegisterLogin from "../StyledButtonRegirsterLogin/StyledButtonRegirsterLOgin";
 
 const LabelWrapper = styled.label`
   margin-top: 1rem;
@@ -451,7 +452,7 @@ function Register() {
               <FontAwesomeIcon icon={faInfoCircle} />
               Must match the first password input field.
             </ParagraphPasswordConfrim>
-            <StyledButton
+            <StyledButtonRegisterLogin
               disabled={
                 !validName || !validPwd || !validMatch || !validEmail
                   ? true
@@ -459,7 +460,7 @@ function Register() {
               }
             >
               Sing up
-            </StyledButton>
+            </StyledButtonRegisterLogin>
           </FormWrapperRegisterLogin>
           <p>
             Already registered?

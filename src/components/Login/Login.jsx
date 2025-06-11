@@ -4,6 +4,8 @@ import SectionWrapper from "../SectionWrapperFrom/SectionWrapper";
 import ParagraphError from "../ParagraphErrorFrom/ParagraphErrorFrom";
 import FormWrapperRegisterLogin from "../FormWrapperRegisterLogin/FormWrapperRegisterLogin";
 import StyledButtonRegisterLogin from "../StyledButtonRegirsterLogin/StyledButtonRegirsterLOgin";
+import StyledSpanRegisterLogin from "../StyledSpanRegisterLogin/StyledSpanRegirsterLogin";
+import StyledHrefRegisterLogin from "../StyledHrefRegisterLogin/StyledHrefRegisterLogin";
 
 const LabelWrapper = styled.label`
   margin-top: 1rem;
@@ -57,6 +59,14 @@ const Login = () => {
         />
         <StyledButtonRegisterLogin>Log in</StyledButtonRegisterLogin>
       </FormWrapperRegisterLogin>
+      <p>
+        Need account?
+        <br />
+        <StyledSpanRegisterLogin className="line">
+          {/*put router link here*/}
+          <StyledHrefRegisterLogin href="#">Sign In</StyledHrefRegisterLogin>
+        </StyledSpanRegisterLogin>
+      </p>
     </SectionWrapper>
   );
 };

@@ -7,6 +7,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
+
   return <div></div>;
 };
 

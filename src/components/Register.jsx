@@ -5,7 +5,7 @@ import {
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "../api/axios";
+import axios from "axios";
 import styled, { css } from "styled-components";
 
 const SectionWrapper = styled.section`
@@ -262,6 +262,48 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // if button enabled with JS hack
+    const v1 = USER_REGEX.test(user);
+    const v2 = PWD_REGEX.test(pwd);
+    const v3 = EMAIL_REGEX.test(email);
+    if (!v1 || !v2 || !v3) {
+      setErrMsg("Invalid Entry");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        "http://localhost:3700/api/register",
+        JSON.stringify({
+          name: user,
+          password: pwd,
+          password2: matchPwd,
+          email: email,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      console.log(response?.data);
+      console.log(response?.accessToken);
+      console.log(JSON.stringify(response));
+      setSuccess(true);
+      //clear state and controlled inputs
+      //need value attrib on inputs for this
+      setUser("");
+      setPwd("");
+      setEmail("");
+      setMatchPwd("");
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 409) {
+        setErrMsg("Username Taken");
+      } else {
+        setErrMsg("Registration Failed");
+      }
+      errRef.current.focus();
+    }
   };
 
   return (

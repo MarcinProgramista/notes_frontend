@@ -56,7 +56,7 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      console.log(JSON.stringify(response?.data));
+      //console.log(JSON.stringify(response?.data));
       //console.log(JSON.stringify(response));
       const accessToken = response?.data?.accessToken;
 
@@ -92,7 +92,7 @@ const Login = () => {
           type="email"
           id="email"
           ref={userRef}
-          autoComplete="off"
+          autoComplete="on"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           required
@@ -103,6 +103,7 @@ const Login = () => {
           id="password"
           onChange={(e) => setPwd(e.target.value)}
           value={pwd}
+          autoComplete="on"
           required
         />
         <StyledButtonRegisterLogin>Log in</StyledButtonRegisterLogin>

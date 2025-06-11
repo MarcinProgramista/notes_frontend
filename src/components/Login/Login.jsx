@@ -34,45 +34,64 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(pwd, email);
+    setEmail("");
+    setPwd("");
+    setSuccess(true);
   };
 
   return (
-    <SectionWrapper>
-      <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
-        {errMsg}
-      </ParagraphError>
-      <h1>Log In</h1>
-      <FormWrapperRegisterLogin onSubmit={handleSubmit}>
-        <LabelWrapper htmlFor="email">Email:</LabelWrapper>
-        <StyledInput
-          type="email"
-          id="email"
-          ref={userRef}
-          autoComplete="off"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          required
-        />
-        <LabelWrapper htmlFor="password">Password:</LabelWrapper>
-        <StyledInput
-          type="password"
-          id="password"
-          onChange={(e) => setPwd(e.target.value)}
-          value={pwd}
-          required
-        />
-        <StyledButtonRegisterLogin>Log in</StyledButtonRegisterLogin>
-      </FormWrapperRegisterLogin>
-      <p>
-        Need account?
-        <br />
-        <StyledSpanRegisterLogin className="line">
-          {/*put router link here*/}
-          <StyledHrefRegisterLogin href="#">Sign In</StyledHrefRegisterLogin>
-        </StyledSpanRegisterLogin>
-      </p>
-    </SectionWrapper>
+    <>
+      {success ? (
+        <SectionWrapper>
+          <h1>You are logged in!</h1>
+          <br />
+          <p>
+            <StyledHrefRegisterLogin href="#">
+              Go to Home
+            </StyledHrefRegisterLogin>
+          </p>
+        </SectionWrapper>
+      ) : (
+        <SectionWrapper>
+          <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
+            {errMsg}
+          </ParagraphError>
+          <h1>Log In</h1>
+          <FormWrapperRegisterLogin onSubmit={handleSubmit}>
+            <LabelWrapper htmlFor="email">Email:</LabelWrapper>
+            <StyledInput
+              type="email"
+              id="email"
+              ref={userRef}
+              autoComplete="off"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required
+            />
+            <LabelWrapper htmlFor="password">Password:</LabelWrapper>
+            <StyledInput
+              type="password"
+              id="password"
+              onChange={(e) => setPwd(e.target.value)}
+              value={pwd}
+              required
+            />
+            <StyledButtonRegisterLogin>Log in</StyledButtonRegisterLogin>
+          </FormWrapperRegisterLogin>
+          <p>
+            Need account?
+            <br />
+            <StyledSpanRegisterLogin className="line">
+              {/*put router link here*/}
+              <StyledHrefRegisterLogin href="#">
+                Sign In
+              </StyledHrefRegisterLogin>
+            </StyledSpanRegisterLogin>
+          </p>
+        </SectionWrapper>
+      )}
+    </>
   );
 };
-
 export default Login;

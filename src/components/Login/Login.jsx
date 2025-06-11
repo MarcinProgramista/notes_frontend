@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, useContext } from "react";
-import AuthContext from "./context/AuthProvider";
+import AuthContext from "../../context/AuthProvider";
 import styled from "styled-components";
 import SectionWrapper from "../SectionWrapperFrom/SectionWrapper";
 import ParagraphError from "../ParagraphErrorFrom/ParagraphErrorFrom";
@@ -7,6 +7,7 @@ import FormWrapperRegisterLogin from "../FormWrapperRegisterLogin/FormWrapperReg
 import StyledButtonRegisterLogin from "../StyledButtonRegirsterLogin/StyledButtonRegirsterLOgin";
 import StyledSpanRegisterLogin from "../StyledSpanRegisterLogin/StyledSpanRegirsterLogin";
 import StyledHrefRegisterLogin from "../StyledHrefRegisterLogin/StyledHrefRegisterLogin";
+import axios from "axios";
 
 const LabelWrapper = styled.label`
   margin-top: 1rem;
@@ -19,6 +20,8 @@ const StyledInput = styled.input`
   padding: 0.25rem;
   border-radius: 0.5rem;
 `;
+
+const LOGIN_URL = "http://localhost:3700/api/auth/login";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);

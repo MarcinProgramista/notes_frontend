@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import SectionWrapper from "../SectionWrapperFrom/SectionWrapper";
+import ParagraphError from "../ParagraphErrorFrom/ParagraphErrorFrom";
 
 const Login = () => {
   const userRef = useRef();
@@ -15,7 +16,13 @@ const Login = () => {
     setErrMsg("");
   }, [email, pwd]);
 
-  return <SectionWrapper></SectionWrapper>;
+  return (
+    <SectionWrapper>
+      <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
+        {errMsg}
+      </ParagraphError>
+    </SectionWrapper>
+  );
 };
 
 export default Login;

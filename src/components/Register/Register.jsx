@@ -12,6 +12,7 @@ import ParagraphError from "../ParagraphErrorFrom/ParagraphErrorFrom";
 import FormWrapperRegisterLogin from "../FormWrapperRegisterLogin/FormWrapperRegisterLogin";
 import StyledButtonRegisterLogin from "../StyledButtonRegirsterLogin/StyledButtonRegirsterLOgin";
 import StyledSpanRegisterLogin from "../StyledSpanRegisterLogin/StyledSpanRegirsterLogin";
+import StyledHrefRegisterLogin from "../StyledHrefRegisterLogin/StyledHrefRegisterLogin";
 
 const LabelWrapper = styled.label`
   margin-top: 1rem;
@@ -168,17 +169,6 @@ const ParagraphPasswordConfrim = styled.p`
     $matchFocus && !$validMatch ? "-10px" : ""};
   svg {
     margin-right: 0.25rem;
-  }
-`;
-
-const StyledSpan = styled.span`
-  display: inline-block;
-`;
-
-const StyledHref = styled.a`
-  color: #fff;
-  a:visited {
-    color: #fff;
   }
 `;
 
@@ -459,7 +449,9 @@ function Register() {
             <br />
             <StyledSpanRegisterLogin className="line">
               {/*put router link here*/}
-              <StyledHref href="#">Sign In</StyledHref>
+              <StyledHrefRegisterLogin href="#">
+                Sign In
+              </StyledHrefRegisterLogin>
             </StyledSpanRegisterLogin>
           </p>
         </SectionWrapper>

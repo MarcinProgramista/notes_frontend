@@ -3,6 +3,7 @@ import Register from "./components/Register/Register.jsx";
 import Login from "./components/Login/Login.jsx";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout.jsx";
+import Unauthorized from "./components/Unauthorized/Unauthorized.jsx";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="unauthorized" element={<Unauthorized />} />
       </Route>
     </Routes>
   );

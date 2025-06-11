@@ -7,35 +7,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import styled, { css } from "styled-components";
-
-const SectionWrapper = styled.section`
-  width: 100%;
-  max-width: 420px;
-  min-height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.4);
-`;
-
-const ParagraphError = styled.p`
-  position: ${({ $errMsg }) => ($errMsg ? "" : "absolute")};
-  left: ${({ $errMsg }) => ($errMsg ? "" : "-9999px")};
-  background-color: ${({ $errMsg }) => ($errMsg ? "lightpink" : "")};
-  color: ${({ $errMsg }) => ($errMsg ? "firebrick" : "")};
-  font-weight: ${({ $errMsg }) => ($errMsg ? "bold" : "")};
-  padding: ${({ $errMsg }) => ($errMsg ? "0.5rem" : "")};
-  margin-bottom: ${({ $errMsg }) => ($errMsg ? "0.5rem" : "")};
-`;
-
-const FormWrapper = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  flex-grow: 1;
-  padding-bottom: 1rem;
-`;
+import SectionWrapper from "../SectionWrapperFrom/SectionWrapper";
+import ParagraphError from "../ParagraphErrorFrom/ParagraphErrorFrom";
+import FormWrapperRegisterLogin from "../FormWrapperRegisterLogin/FormWrapperRegisterLogin";
 
 const LabelWrapper = styled.label`
   margin-top: 1rem;
@@ -321,7 +295,7 @@ function Register() {
             {errMsg}
           </ParagraphError>
           <h1>Register</h1>
-          <FormWrapper onSubmit={handleSubmit}>
+          <FormWrapperRegisterLogin onSubmit={handleSubmit}>
             <LabelWrapper htmlFor="username">
               Username:
               <StyledFontAwesomeIconHideName
@@ -486,7 +460,7 @@ function Register() {
             >
               Sing up
             </StyledButton>
-          </FormWrapper>
+          </FormWrapperRegisterLogin>
           <p>
             Already registered?
             <br />

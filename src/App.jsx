@@ -14,7 +14,7 @@ const WrapperApp = styled.main`
 function App() {
   return (
     <WrapperApp>
-      <Login />
+      <Register />
     </WrapperApp>
   );
 }

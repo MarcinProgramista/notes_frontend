@@ -4,6 +4,10 @@ import SectionWrapper from "../SectionWrapperFrom/SectionWrapper";
 import ParagraphError from "../ParagraphErrorFrom/ParagraphErrorFrom";
 import FormWrapperRegisterLogin from "../FormWrapperRegisterLogin/FormWrapperRegisterLogin";
 
+const LabelWrapper = styled.label`
+  margin-top: 1rem;
+`;
+
 const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
@@ -23,7 +27,9 @@ const Login = () => {
         {errMsg}
       </ParagraphError>
       <h1>Sign In</h1>
-      <FormWrapperRegisterLogin></FormWrapperRegisterLogin>
+      <FormWrapperRegisterLogin>
+        <LabelWrapper htmlFor="email">Email:</LabelWrapper>
+      </FormWrapperRegisterLogin>
     </SectionWrapper>
   );
 };

@@ -260,6 +260,10 @@ function Register() {
     setErrMsg("");
   }, [user, pwd, email, matchPwd]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       {success ? (
@@ -275,7 +279,7 @@ function Register() {
             {errMsg}
           </ParagraphError>
           <h1>Register</h1>
-          <FormWrapper>
+          <FormWrapper onSubmit={handleSubmit}>
             <LabelWrapper htmlFor="username">
               Username:
               <StyledFontAwesomeIconHideName

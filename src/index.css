@@ -16,12 +16,3 @@ body {
   min-height: 100vh;
   background-color: dodgerblue;
 }
-
-a,
-a:visited {
-  color: #fff;
-}
-
-.line {
-  display: inline-block;
-}

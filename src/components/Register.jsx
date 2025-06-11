@@ -204,6 +204,17 @@ const StyledButton = styled.button`
   padding: 0.5rem;
 `;
 
+const StyledSpan = styled.span`
+  display: inline-block;
+`;
+
+const StyledHref = styled.a`
+  color: #fff;
+  a:visited {
+    color: #fff;
+  }
+`;
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -247,7 +258,7 @@ function Register() {
 
   useEffect(() => {
     setErrMsg("");
-  }, [user, pwd, matchPwd]);
+  }, [user, pwd, email, matchPwd]);
 
   return (
     <>
@@ -255,7 +266,7 @@ function Register() {
         <SectionWrapper>
           <h1>Success!</h1>
           <p>
-            <a href="#">Sign In</a>
+            <StyledHref href="#">Sign In</StyledHref>
           </p>
         </SectionWrapper>
       ) : (
@@ -430,6 +441,14 @@ function Register() {
               Sing up
             </StyledButton>
           </FormWrapper>
+          <p>
+            Already registered?
+            <br />
+            <StyledSpan className="line">
+              {/*put router link here*/}
+              <StyledHref href="#">Sign In</StyledHref>
+            </StyledSpan>
+          </p>
         </SectionWrapper>
       )}
     </>

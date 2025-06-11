@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import Register from "./components/Register.jsx";
+import Register from "./components/Register/Register.jsx";
+import Login from "./components/Login/Login.jsx";
 
 const WrapperApp = styled.main`
   display: flex;
@@ -13,7 +14,7 @@ const WrapperApp = styled.main`
 function App() {
   return (
     <WrapperApp>
-      <Register />
+      <Login />
     </WrapperApp>
   );
 }

@@ -1,21 +1,17 @@
 import styled from "styled-components";
 import Register from "./components/Register/Register.jsx";
 import Login from "./components/Login/Login.jsx";
-
-const WrapperApp = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 1rem 0.5rem;
-`;
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout/Layout.jsx";
 
 function App() {
   return (
-    <WrapperApp>
-      <Login />
-    </WrapperApp>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Route>
+    </Routes>
   );
 }
 

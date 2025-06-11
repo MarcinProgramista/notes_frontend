@@ -8,6 +8,14 @@ const LabelWrapper = styled.label`
   margin-top: 1rem;
 `;
 
+const StyledInput = styled.input`
+  margin-top: 1rem;
+  font-family: "Nunito", sans-serif;
+  font-size: 22px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+`;
+
 const Login = () => {
   const userRef = useRef();
   const errRef = useRef();
@@ -29,6 +37,15 @@ const Login = () => {
       <h1>Sign In</h1>
       <FormWrapperRegisterLogin>
         <LabelWrapper htmlFor="email">Email:</LabelWrapper>
+        <StyledInput
+          type="email"
+          id="email"
+          ref={userRef}
+          autoComplete="off"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          required
+        />
       </FormWrapperRegisterLogin>
     </SectionWrapper>
   );

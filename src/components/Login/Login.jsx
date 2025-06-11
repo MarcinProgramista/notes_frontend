@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SectionWrapper from "../SectionWrapperFrom/SectionWrapper";
 import ParagraphError from "../ParagraphErrorFrom/ParagraphErrorFrom";
 import FormWrapperRegisterLogin from "../FormWrapperRegisterLogin/FormWrapperRegisterLogin";
+import StyledButtonRegisterLogin from "../StyledButtonRegirsterLogin/StyledButtonRegirsterLOgin";
 
 const LabelWrapper = styled.label`
   margin-top: 1rem;
@@ -34,7 +35,7 @@ const Login = () => {
       <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
         {errMsg}
       </ParagraphError>
-      <h1>Sign In</h1>
+      <h1>Log In</h1>
       <FormWrapperRegisterLogin>
         <LabelWrapper htmlFor="email">Email:</LabelWrapper>
         <StyledInput
@@ -54,6 +55,7 @@ const Login = () => {
           value={pwd}
           required
         />
+        <StyledButtonRegisterLogin>Log in</StyledButtonRegisterLogin>
       </FormWrapperRegisterLogin>
     </SectionWrapper>
   );

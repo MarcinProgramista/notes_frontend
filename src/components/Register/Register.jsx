@@ -11,6 +11,7 @@ import SectionWrapper from "../SectionWrapperFrom/SectionWrapper";
 import ParagraphError from "../ParagraphErrorFrom/ParagraphErrorFrom";
 import FormWrapperRegisterLogin from "../FormWrapperRegisterLogin/FormWrapperRegisterLogin";
 import StyledButtonRegisterLogin from "../StyledButtonRegirsterLogin/StyledButtonRegirsterLOgin";
+import StyledSpanRegisterLogin from "../StyledSpanRegisterLogin/StyledSpanRegirsterLogin";
 
 const LabelWrapper = styled.label`
   margin-top: 1rem;
@@ -168,15 +169,6 @@ const ParagraphPasswordConfrim = styled.p`
   svg {
     margin-right: 0.25rem;
   }
-`;
-
-const StyledButton = styled.button`
-  font-family: "Nunito", sans-serif;
-  font-size: 22px;
-  padding: 0.25rem;
-  border-radius: 0.5rem;
-  margin-top: 1rem;
-  padding: 0.5rem;
 `;
 
 const StyledSpan = styled.span`
@@ -465,10 +457,10 @@ function Register() {
           <p>
             Already registered?
             <br />
-            <StyledSpan className="line">
+            <StyledSpanRegisterLogin className="line">
               {/*put router link here*/}
               <StyledHref href="#">Sign In</StyledHref>
-            </StyledSpan>
+            </StyledSpanRegisterLogin>
           </p>
         </SectionWrapper>
       )}

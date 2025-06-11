@@ -46,6 +46,14 @@ const Login = () => {
           value={email}
           required
         />
+        <LabelWrapper htmlFor="password">Password:</LabelWrapper>
+        <StyledInput
+          type="password"
+          id="password"
+          onChange={(e) => setPwd(e.target.value)}
+          value={pwd}
+          required
+        />
       </FormWrapperRegisterLogin>
     </SectionWrapper>
   );

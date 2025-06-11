@@ -9,6 +9,10 @@ const Login = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  useEffect(() => {
+    setErrMsg("");
+  }, [email, pwd]);
+
   return <div></div>;
 };
 

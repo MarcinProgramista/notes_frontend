@@ -7,6 +7,7 @@ import Unauthorized from "./components/Unauthorized/Unauthorized.jsx";
 import LinkPage from "./components/LinkPage/LinkPage.jsx";
 import Missing from "./components/Missing/Missing.jsx";
 import Home from "./components/Home/Home.jsx";
+import RequireAuth from "./components/RequireAuth/RequireAuth.jsx";
 
 function App() {
   return (
@@ -16,8 +17,10 @@ function App() {
         <Route path="register" element={<Register />} />
         <Route path="linkpage" element={<LinkPage />} />
         <Route path="unauthorized" element={<Unauthorized />} />
-        <Route path="/" element={<Home />} />
-        {/* catch all */}
+        <Route element={<RequireAuth />}>
+          <Route path="/" element={<Home />} />
+          {/* catch all */}
+        </Route>
         <Route path="*" element={<Missing />} />
       </Route>
     </Routes>

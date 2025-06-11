@@ -8,6 +8,7 @@ import StyledSpanRegisterLogin from "../StyledSpanRegisterLogin/StyledSpanRegirs
 import StyledHrefRegisterLogin from "../StyledHrefRegisterLogin/StyledHrefRegisterLogin";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const LabelWrapper = styled.label`
   margin-top: 1rem;
@@ -25,13 +26,17 @@ const LOGIN_URL = "http://localhost:3700/api/auth/login";
 
 const Login = () => {
   const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const userRef = useRef();
   const errRef = useRef();
 
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     setErrMsg("");
@@ -52,15 +57,15 @@ const Login = () => {
         }
       );
       console.log(JSON.stringify(response?.data));
-      console.log(JSON.stringify(response));
+      //console.log(JSON.stringify(response));
       const accessToken = response?.data?.accessToken;
 
-      //   const roles = response?.data?.roles;
+      //const roles = response?.data?.roles;
       //   console.log(roles);
       setAuth({ email, pwd, accessToken });
       setEmail("");
       setPwd("");
-      setSuccess(true);
+      navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -76,57 +81,41 @@ const Login = () => {
   };
 
   return (
-    <>
-      {success ? (
-        <SectionWrapper>
-          <h1>You are logged in!</h1>
-          <br />
-          <p>
-            <StyledHrefRegisterLogin href="#">
-              Go to Home
-            </StyledHrefRegisterLogin>
-          </p>
-        </SectionWrapper>
-      ) : (
-        <SectionWrapper>
-          <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
-            {errMsg}
-          </ParagraphError>
-          <h1>Log In</h1>
-          <FormWrapperRegisterLogin onSubmit={handleSubmit}>
-            <LabelWrapper htmlFor="email">Email:</LabelWrapper>
-            <StyledInput
-              type="email"
-              id="email"
-              ref={userRef}
-              autoComplete="off"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              required
-            />
-            <LabelWrapper htmlFor="password">Password:</LabelWrapper>
-            <StyledInput
-              type="password"
-              id="password"
-              onChange={(e) => setPwd(e.target.value)}
-              value={pwd}
-              required
-            />
-            <StyledButtonRegisterLogin>Log in</StyledButtonRegisterLogin>
-          </FormWrapperRegisterLogin>
-          <p>
-            Need account?
-            <br />
-            <StyledSpanRegisterLogin className="line">
-              {/*put router link here*/}
-              <StyledHrefRegisterLogin href="#">
-                Sign In
-              </StyledHrefRegisterLogin>
-            </StyledSpanRegisterLogin>
-          </p>
-        </SectionWrapper>
-      )}
-    </>
+    <SectionWrapper>
+      <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
+        {errMsg}
+      </ParagraphError>
+      <h1>Log In</h1>
+      <FormWrapperRegisterLogin onSubmit={handleSubmit}>
+        <LabelWrapper htmlFor="email">Email:</LabelWrapper>
+        <StyledInput
+          type="email"
+          id="email"
+          ref={userRef}
+          autoComplete="off"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          required
+        />
+        <LabelWrapper htmlFor="password">Password:</LabelWrapper>
+        <StyledInput
+          type="password"
+          id="password"
+          onChange={(e) => setPwd(e.target.value)}
+          value={pwd}
+          required
+        />
+        <StyledButtonRegisterLogin>Log in</StyledButtonRegisterLogin>
+      </FormWrapperRegisterLogin>
+      <p>
+        Need account?
+        <br />
+        <StyledSpanRegisterLogin className="line">
+          {/*put router link here*/}
+          <StyledHrefRegisterLogin href="#">Sign In</StyledHrefRegisterLogin>
+        </StyledSpanRegisterLogin>
+      </p>
+    </SectionWrapper>
   );
 };
 export default Login;

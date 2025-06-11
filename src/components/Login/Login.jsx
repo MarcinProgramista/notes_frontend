@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect, useContext } from "react";
+import AuthContext from "./context/AuthProvider";
 import styled from "styled-components";
 import SectionWrapper from "../SectionWrapperFrom/SectionWrapper";
 import ParagraphError from "../ParagraphErrorFrom/ParagraphErrorFrom";
@@ -20,6 +21,7 @@ const StyledInput = styled.input`
 `;
 
 const Login = () => {
+  const { setAuth } = useContext(AuthContext);
   const userRef = useRef();
   const errRef = useRef();
 

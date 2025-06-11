@@ -21,6 +21,7 @@ const Login = () => {
       <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
         {errMsg}
       </ParagraphError>
+      <h1>Sign In</h1>
     </SectionWrapper>
   );
 };

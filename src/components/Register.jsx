@@ -195,6 +195,15 @@ const ParagraphPasswordConfrim = styled.p`
   }
 `;
 
+const StyledButton = styled.button`
+  font-family: "Nunito", sans-serif;
+  font-size: 22px;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+`;
+
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -411,6 +420,15 @@ function Register() {
               <FontAwesomeIcon icon={faInfoCircle} />
               Must match the first password input field.
             </ParagraphPasswordConfrim>
+            <StyledButton
+              disabled={
+                !validName || !validPwd || !validMatch || !validEmail
+                  ? true
+                  : false
+              }
+            >
+              Sing up
+            </StyledButton>
           </FormWrapper>
         </SectionWrapper>
       )}

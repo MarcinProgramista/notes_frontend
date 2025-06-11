@@ -12,6 +12,9 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="unauthorized" element={<Unauthorized />} />
+
+        {/* catch all */}
+        <Route path="*" element={<Missing />} />
       </Route>
     </Routes>
   );

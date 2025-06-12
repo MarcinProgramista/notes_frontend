@@ -9,7 +9,7 @@ function Users() {
 
   useEffect(() => {
     let isMounted = true;
-    const controller = new AbortController();
+
     const getUsers = async () => {
       try {
         const response = await axios.get("http://localhost:3700/api/users");
@@ -22,7 +22,6 @@ function Users() {
     getUsers();
     return () => {
       isMounted = false;
-      controller.abort();
     };
   }, []);
 

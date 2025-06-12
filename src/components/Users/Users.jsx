@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 function Users() {
   const [users, setUsers] = useState();
+  const refresh = useRefreshToken();
   const navigate = useNavigate();
   const location = useLocation();
 

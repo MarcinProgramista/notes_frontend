@@ -269,7 +269,7 @@ function Register() {
         <SectionWrapper>
           <h1>Success!</h1>
           <p>
-            <StyledHref href="#">Sign In</StyledHref>
+            <StyledHrefRegisterLogin href="#">Sign In</StyledHrefRegisterLogin>
           </p>
         </SectionWrapper>
       ) : (

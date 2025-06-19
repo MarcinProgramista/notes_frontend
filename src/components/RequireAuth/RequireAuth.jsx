@@ -6,7 +6,7 @@ import { useContext } from "react";
 const RequireAuth = () => {
   const { auth } = useAuth();
   const location = useLocation();
-  console.log(auth);
+  //console.log(auth);
 
   return auth?.email ? (
     <Outlet />

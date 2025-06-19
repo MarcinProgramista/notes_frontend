@@ -41,12 +41,27 @@ const Login = () => {
   useEffect(() => {
     setErrMsg("");
   }, [email, pwd]);
-
+  const handleSubmit1 = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3700/api/auth/login",
+        JSON.stringify({
+          email: email,
+          password: pwd,
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+    } catch {}
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        LOGIN_URL,
+        "http://localhost:3700/api/auth/login",
         JSON.stringify({
           email: email,
           password: pwd,
@@ -72,6 +87,8 @@ const Login = () => {
       } else if (err.response?.status === 400) {
         setErrMsg("Missing Username or Password");
       } else if (err.response?.status === 401) {
+        console.log(err);
+
         setErrMsg("Unauthorized");
       } else {
         setErrMsg("Login Failed");
@@ -92,7 +109,7 @@ const Login = () => {
           type="email"
           id="email"
           ref={userRef}
-          autoComplete="on"
+          autoComplete="off"
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           required
@@ -103,7 +120,6 @@ const Login = () => {
           id="password"
           onChange={(e) => setPwd(e.target.value)}
           value={pwd}
-          autoComplete="on"
           required
         />
         <StyledButtonRegisterLogin>Log in</StyledButtonRegisterLogin>

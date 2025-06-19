@@ -22,6 +22,9 @@ const Home = () => {
       <h1>Home</h1>
       <br />
       <p>You are logged in!</p>
+      <Link style={{ textDecoration: "none", color: "#fff" }} to="/linkpage">
+        LLink
+      </Link>
       <Users />
       <div className="flexGrow">
         <button onClick={logout}>Sign Out</button>

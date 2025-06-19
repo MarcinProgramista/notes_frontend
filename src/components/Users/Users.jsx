@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import axios from "../../api/axios";
 
 function Users() {
   const [users, setUsers] = useState();
-  const refresh = useRefreshToken();
+  const controller = new AbortController();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -13,16 +13,19 @@ function Users() {
 
     const getUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:3700/api/users");
-        //console.log(response.data);
+        const response = await axios.get("/api/users", {signal:controller.signal});
+
         isMounted && setUsers(response.data);
       } catch (err) {
+        console.log(err);
         navigate("/login", { state: { from: location }, replace: true });
       }
     };
+
     getUsers();
     return () => {
       isMounted = false;
+      controller.abort();
     };
   }, []);
 
@@ -30,11 +33,14 @@ function Users() {
     <article>
       <h2>Users List</h2>
       {users?.length ? (
-        <ul>
-          {users.map((user, i) => (
-            <li key={i}>{user?.name}</li>
-          ))}
-        </ul>
+        <>
+          <ul>
+            {users.map((user, i) => (
+              <li key={i}>{user?.name}</li>
+            ))}
+          </ul>
+          <h2>Public</h2>
+        </>
       ) : (
         <p>No users to display</p>
       )}

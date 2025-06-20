@@ -9,17 +9,48 @@ import StyledHrefRegisterLogin from "../StyledHrefRegisterLogin/StyledHrefRegist
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import Separator from "../Separator";
+import WrapperSeparator from "../Separator";
 
 const LabelWrapper = styled.label`
   margin-top: 1rem;
 `;
+const StyledHeader = styled.h1`
+ color: hsl(60, 9.1%, 97.8%);
+ text-align: center;
+`
 
+const SyledParagraph= styled.p`
+ color: hsl(24, 5.4%, 63.9%);
+ text-align: center;
+ font-size: 16px;
+`
 const StyledInput = styled.input`
   margin-top: 1rem;
   font-family: "Nunito", sans-serif;
-  font-size: 22px;
+
+  //font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
+  display: flex;
+  width: 100%;
+  border: 2px solid hsl(39, 89%, 67%);
+  border-width: 0px;
+  background: hsl(0, 0%, 20%);
+  color: #fff;
+  font-size: 0.875rem /* 14px */;
+  line-height: 1.25rem /* 20px */;
+    &:focus {
+      outline: none;
+      box-shadow: 0px 0px 4px hsl(39, 89%, 67%);
+      background: hsl(0, 0%, 20%);
+      outline: 2px solid transparent;
+      outline-offset: 2px;
+    }
+    &::placeholder {
+      color: hsl(39, 89%, 67%);
+   }
+  
 `;
 
 const LOGIN_URL = "http://localhost:3700/api/auth/login";
@@ -102,7 +133,9 @@ const Login = () => {
       <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
         {errMsg}
       </ParagraphError>
-      <h1>Log In</h1>
+      <StyledHeader>Log In</StyledHeader>
+      <SyledParagraph>Log in using your email and password</SyledParagraph>
+      <WrapperSeparator/>
       <FormWrapperRegisterLogin onSubmit={handleSubmit}>
         <LabelWrapper htmlFor="email">Email:</LabelWrapper>
         <StyledInput
@@ -113,6 +146,7 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           required
+          placeholder='name@example.com'
         />
         <LabelWrapper htmlFor="password">Password:</LabelWrapper>
         <StyledInput
@@ -121,6 +155,7 @@ const Login = () => {
           onChange={(e) => setPwd(e.target.value)}
           value={pwd}
           required
+          placeholder='put password'
         />
         <StyledButtonRegisterLogin>Log in</StyledButtonRegisterLogin>
       </FormWrapperRegisterLogin>
@@ -129,7 +164,7 @@ const Login = () => {
         <br />
         <StyledSpanRegisterLogin className="line">
           {/*put router link here*/}
-          <StyledHrefRegisterLogin href="#">Sign In</StyledHrefRegisterLogin>
+          <StyledHrefRegisterLogin href="#">Register</StyledHrefRegisterLogin>
         </StyledSpanRegisterLogin>
       </p>
     </SectionWrapper>

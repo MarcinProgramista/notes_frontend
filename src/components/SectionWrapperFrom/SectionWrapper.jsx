@@ -8,7 +8,9 @@ const SectionWrapper = styled.section`
   flex-direction: column;
   justify-content: flex-start;
   padding: 1rem;
-  background-color: rgba(0, 0, 0, 0.4);
-`;
-
+  overflow: hidden;
+  color:hsl(24, 5.4%, 63.9%);
+  background-color: hsl(0, 0%, 15%);
+  border-radius: 0.5rem;
+`
 export default SectionWrapper;

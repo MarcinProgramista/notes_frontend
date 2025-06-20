@@ -11,7 +11,7 @@ import RequireAuth from "./components/RequireAuth/RequireAuth.jsx";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/">
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="linkpage" element={<LinkPage />} />

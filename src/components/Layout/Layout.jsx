@@ -12,7 +12,7 @@ const WrapperApp = styled.main`
 
 const Layout = () => {
   return (
-    <WrapperApp className="App">
+    <WrapperApp>
       <Outlet />
     </WrapperApp>
   );

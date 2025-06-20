@@ -13,6 +13,7 @@ import FormWrapperRegisterLogin from "../FormWrapperRegisterLogin/FormWrapperReg
 import StyledButtonRegisterLogin from "../StyledButtonRegirsterLogin/StyledButtonRegirsterLOgin";
 import StyledSpanRegisterLogin from "../StyledSpanRegisterLogin/StyledSpanRegirsterLogin";
 import StyledHrefRegisterLogin from "../StyledHrefRegisterLogin/StyledHrefRegisterLogin";
+import Wrapper from "../ui/Wrapper";
 
 const LabelWrapper = styled.label`
   margin-top: 1rem;
@@ -264,7 +265,7 @@ function Register() {
   };
 
   return (
-    <>
+    <Wrapper>
       {success ? (
         <SectionWrapper>
           <h1>Success!</h1>
@@ -456,7 +457,7 @@ function Register() {
           </p>
         </SectionWrapper>
       )}
-    </>
+    </Wrapper>
   );
 }
 

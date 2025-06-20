@@ -5,9 +5,10 @@ import Users from "../Users/Users";
 import axios from "axios";
 
 const Home = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   const [errMsg, setErrMsg] = useState("");
+  console.log(auth.id);
 
   const logout = () => {
     setAuth({});
@@ -21,7 +22,7 @@ const Home = () => {
     <section>
       <h1>Home</h1>
       <br />
-      <p>You are logged in!</p>
+      <p>You are logged in! {auth.id}</p>
       <Link style={{ textDecoration: "none", color: "#fff" }} to="/linkpage">
         LLink
       </Link>

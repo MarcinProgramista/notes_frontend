@@ -9,22 +9,23 @@ import StyledHrefRegisterLogin from "../StyledHrefRegisterLogin/StyledHrefRegist
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import Separator from "../Separator";
+
 import WrapperSeparator from "../Separator";
+import Wrapper from "../ui/Wrapper";
 
 const LabelWrapper = styled.label`
   margin-top: 1rem;
 `;
 const StyledHeader = styled.h1`
- color: hsl(60, 9.1%, 97.8%);
- text-align: center;
-`
+  color: hsl(60, 9.1%, 97.8%);
+  text-align: center;
+`;
 
-const SyledParagraph= styled.p`
- color: hsl(24, 5.4%, 63.9%);
- text-align: center;
- font-size: 16px;
-`
+const SyledParagraph = styled.p`
+  color: hsl(24, 5.4%, 63.9%);
+  text-align: center;
+  font-size: 16px;
+`;
 const StyledInput = styled.input`
   margin-top: 1rem;
   font-family: "Nunito", sans-serif;
@@ -40,54 +41,37 @@ const StyledInput = styled.input`
   color: #fff;
   font-size: 0.875rem /* 14px */;
   line-height: 1.25rem /* 20px */;
-    &:focus {
-      outline: none;
-      box-shadow: 0px 0px 4px hsl(39, 89%, 67%);
-      background: hsl(0, 0%, 20%);
-      outline: 2px solid transparent;
-      outline-offset: 2px;
-    }
-    &::placeholder {
-      color: hsl(39, 89%, 67%);
-   }
-  
+  &:focus {
+    outline: none;
+    box-shadow: 0px 0px 4px hsl(39, 89%, 67%);
+    background: hsl(0, 0%, 20%);
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  &::placeholder {
+    color: hsl(39, 89%, 67%);
+  }
 `;
 
 const LOGIN_URL = "http://localhost:3700/api/auth/login";
 
 const Login = () => {
   const { setAuth } = useAuth();
-
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
   const userRef = useRef();
   const errRef = useRef();
-
+  const [id, setId] = useState("");
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [errMsg, setErrMsg] = useState("");
-
+  const controller = new AbortController();
   useEffect(() => {
     setErrMsg("");
   }, [email, pwd]);
-  const handleSubmit1 = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:3700/api/auth/login",
-        JSON.stringify({
-          email: email,
-          password: pwd,
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-    } catch {}
-  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -100,6 +84,7 @@ const Login = () => {
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
+          signal: controller.signal,
         }
       );
       //console.log(JSON.stringify(response?.data));
@@ -108,9 +93,16 @@ const Login = () => {
 
       //const roles = response?.data?.roles;
       //   console.log(roles);
-      setAuth({ email, pwd, accessToken });
+      setId(JSON.stringify(response?.data.user_id));
+      setAuth({
+        id: JSON.stringify(response?.data.user_id),
+        email,
+        pwd,
+        accessToken,
+      });
       setEmail("");
       setPwd("");
+      controller.abort();
       navigate(from, { replace: true });
     } catch (err) {
       if (!err?.response) {
@@ -129,45 +121,47 @@ const Login = () => {
   };
 
   return (
-    <SectionWrapper>
-      <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
-        {errMsg}
-      </ParagraphError>
-      <StyledHeader>Log In</StyledHeader>
-      <SyledParagraph>Log in using your email and password</SyledParagraph>
-      <WrapperSeparator/>
-      <FormWrapperRegisterLogin onSubmit={handleSubmit}>
-        <LabelWrapper htmlFor="email">Email:</LabelWrapper>
-        <StyledInput
-          type="email"
-          id="email"
-          ref={userRef}
-          autoComplete="off"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          required
-          placeholder='name@example.com'
-        />
-        <LabelWrapper htmlFor="password">Password:</LabelWrapper>
-        <StyledInput
-          type="password"
-          id="password"
-          onChange={(e) => setPwd(e.target.value)}
-          value={pwd}
-          required
-          placeholder='put password'
-        />
-        <StyledButtonRegisterLogin>Log in</StyledButtonRegisterLogin>
-      </FormWrapperRegisterLogin>
-      <p>
-        Need account?
-        <br />
-        <StyledSpanRegisterLogin className="line">
-          {/*put router link here*/}
-          <StyledHrefRegisterLogin href="#">Register</StyledHrefRegisterLogin>
-        </StyledSpanRegisterLogin>
-      </p>
-    </SectionWrapper>
+    <Wrapper>
+      <SectionWrapper>
+        <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
+          {errMsg}
+        </ParagraphError>
+        <StyledHeader>Log In</StyledHeader>
+        <SyledParagraph>Log in using your email and password</SyledParagraph>
+        <WrapperSeparator />
+        <FormWrapperRegisterLogin onSubmit={handleSubmit}>
+          <LabelWrapper htmlFor="email">Email:</LabelWrapper>
+          <StyledInput
+            type="email"
+            id="email"
+            ref={userRef}
+            autoComplete="off"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
+            placeholder="name@example.com"
+          />
+          <LabelWrapper htmlFor="password">Password:</LabelWrapper>
+          <StyledInput
+            type="password"
+            id="password"
+            onChange={(e) => setPwd(e.target.value)}
+            value={pwd}
+            required
+            placeholder="put password"
+          />
+          <StyledButtonRegisterLogin>Log in</StyledButtonRegisterLogin>
+        </FormWrapperRegisterLogin>
+        <p>
+          Need account?
+          <br />
+          <StyledSpanRegisterLogin className="line">
+            {/*put router link here*/}
+            <StyledHrefRegisterLogin href="#">Register</StyledHrefRegisterLogin>
+          </StyledSpanRegisterLogin>
+        </p>
+      </SectionWrapper>
+    </Wrapper>
   );
 };
 export default Login;

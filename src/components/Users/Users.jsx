@@ -8,21 +8,21 @@ function Users() {
   const controller = new AbortController();
   const navigate = useNavigate();
   const location = useLocation();
- const axiosPrivate = useAxiosPrivate();
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
     let isMounted = true;
-    
-  const controller = new AbortController();
+
+    const controller = new AbortController();
 
     const getUsers = async () => {
-      
       try {
-        const response = await axiosPrivate.get("", {signal:controller.signal});
+        const response = await axiosPrivate.get("/api/users", {
+          signal: controller.signal,
+        });
 
         isMounted && setUsers(response.data);
         controller.abort();
-
       } catch (err) {
         console.log(err);
         navigate("/login", { state: { from: location }, replace: true });
@@ -35,6 +35,7 @@ function Users() {
       controller.abort();
     };
   }, []);
+  console.log(users);
 
   return (
     <article>

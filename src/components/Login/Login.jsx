@@ -19,6 +19,8 @@ const LabelWrapper = styled.label`
 const StyledHeader = styled.h1`
   color: hsl(60, 9.1%, 97.8%);
   text-align: center;
+  margin-block: 0.67em;
+  font-size: 2em;
 `;
 
 const SyledParagraph = styled.p`

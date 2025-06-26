@@ -1,14 +1,74 @@
-import { useNavigate, Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useNavigate, Link, NavLink, Outlet } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
 import AuthContext from "../../context/AuthProvider";
-import Users from "../Users/Users";
 import axios from "axios";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import styled from "styled-components";
 
+const StyledNavbar = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem /* 32px */;
+  padding-left: 2rem /* 32px */;
+  padding-right: 2rem /* 32px */;
+  padding-top: 1rem /* 16px */;
+  padding-bottom: 1rem /* 16px */;
+`;
+
+const StyledCategories = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5rem /* 32px */;
+`;
+
+const StyledLink = styled(NavLink)`
+  text-decoration: none;
+  color: hsl(60, 9.1%, 97.8%);
+  &:focus,
+  &:hover {
+    text-decoration: none;
+    color: hsl(60, 9.1%, 97.8%);
+  }
+`;
 const Home = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
   const [errMsg, setErrMsg] = useState("");
-  console.log(auth.id);
+  const user_id = parseInt(JSON.parse(auth.id));
+  const [categories, setCategories] = useState();
+  const axiosPrivate = useAxiosPrivate();
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const controller = new AbortController();
+
+    const getCategires = async () => {
+      try {
+        const response = await axiosPrivate.get(
+          `/api/categories/user/${user_id}`,
+          {
+            signal: controller.signal,
+          }
+        );
+
+        isMounted && setCategories(response.data);
+        controller.abort();
+      } catch (err) {
+        console.log(err);
+        navigate("/login", { state: { from: location }, replace: true });
+      }
+    };
+
+    getCategires();
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, [user_id]);
 
   const logout = () => {
     setAuth({});
@@ -19,18 +79,29 @@ const Home = () => {
   };
 
   return (
-    <section>
-      <h1>Home</h1>
-      <br />
-      <p>You are logged in! {auth.id}</p>
-      <Link style={{ textDecoration: "none", color: "#fff" }} to="/linkpage">
-        LLink
-      </Link>
-      <Users />
-      <div className="flexGrow">
-        <button onClick={logout}>Sign Out</button>
-      </div>
-    </section>
+    <>
+      <StyledNavbar>
+        <StyledLink to="/">Home</StyledLink>
+        {categories?.length ? (
+          <StyledCategories>
+            {categories.map((category, i) => (
+              <StyledLink
+                key={i}
+                style={{ textDecoration: "no ne" }}
+                to={`/notes/${category.id}`}
+              >
+                {category.category}
+              </StyledLink>
+            ))}
+          </StyledCategories>
+        ) : (
+          <p>No catgories to display</p>
+        )}
+
+        <StyledLink onClick={logout}>Log Out</StyledLink>
+      </StyledNavbar>
+      <Outlet />
+    </>
   );
 };
 

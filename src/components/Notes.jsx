@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import styled from "styled-components";
 import {
   Navigate,
   useLocation,
@@ -6,6 +7,16 @@ import {
   useParams,
 } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+
+const Wrapper = styled.div`
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 2rem /* 32px */;
+  padding-left: 2rem /* 32px */;
+  padding-top: 1rem /* 16px */;
+  padding-bottom: 1rem /* 16px */;
+`;
 
 const Notes = () => {
   const [notes, setNotes] = useState();
@@ -41,7 +52,7 @@ const Notes = () => {
     };
   }, [category_id]);
   console.log(notes);
-  return <div>{category_id}</div>;
+  return <Wrapper>{category_id}</Wrapper>;
 };
 
 export default Notes;

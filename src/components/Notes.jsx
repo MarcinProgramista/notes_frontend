@@ -18,6 +18,13 @@ const Wrapper = styled.div`
   padding-bottom: 1rem /* 16px */;
 `;
 
+const NotesList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem /* 16px */;
+`;
+
 const Notes = () => {
   const [notes, setNotes] = useState();
   const params = useParams();
@@ -52,7 +59,11 @@ const Notes = () => {
     };
   }, [category_id]);
   console.log(notes);
-  return <Wrapper>{category_id}</Wrapper>;
+  return (
+    <Wrapper>
+      <NotesList>{category_id}</NotesList>
+    </Wrapper>
+  );
 };
 
 export default Notes;

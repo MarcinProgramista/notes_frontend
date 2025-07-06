@@ -25,6 +25,10 @@ const NotesList = styled.div`
   gap: 1rem /* 16px */;
 `;
 
+const WrapperCard = styled.div`
+  width: 320px;
+`;
+
 const Notes = () => {
   const [notes, setNotes] = useState();
   const params = useParams();
@@ -61,7 +65,9 @@ const Notes = () => {
   console.log(notes);
   return (
     <Wrapper>
-      <NotesList>{category_id}</NotesList>
+      <NotesList>
+        <WrapperCard> {category_id}</WrapperCard>
+      </NotesList>
     </Wrapper>
   );
 };

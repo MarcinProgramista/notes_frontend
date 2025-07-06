@@ -57,7 +57,10 @@ const Notes = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const axiosPrivate = useAxiosPrivate();
-
+  const formatDate = (note) => {
+    const reg = /([0-9]{2})-([0-9]{2})-([0-9]{4})/;
+    return note.created.replace(reg, "$1.#2.#3");
+  };
   useEffect(() => {
     let isMounted = true;
 
@@ -92,6 +95,9 @@ const Notes = () => {
             <WrapperCard key={note.id}>
               <StyledTitle>{note.title}</StyledTitle>
               <StyledAvatar src={note.link} />
+              {note.created.length === 10
+                ? formatDate(note)
+                : new Date(note.created).toLocaleDateString()}
             </WrapperCard>
           ))
         ) : (

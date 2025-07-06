@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   width: 100%;
   margin-right: auto;
   margin-left: auto;
+  text-align: center;
   padding-right: 2rem /* 32px */;
   padding-left: 2rem /* 32px */;
   padding-top: 1rem /* 16px */;
@@ -28,7 +29,27 @@ const NotesList = styled.div`
 const WrapperCard = styled.div`
   width: 320px;
 `;
+const StyledTitle = styled.h1`
+  font-size: 22px;
+  font-weight: 600;
+  color: hsl(60, 9.1%, 97.8%);
 
+  text-align: center;
+
+  font-family: "Nunito", sans-serif;
+`;
+
+const StyledAvatar = styled.img`
+  width: 250px;
+  height: 350px;
+  border: 3px solid hsl(60, 9.1%, 97.8%);
+  border-radius: 25px;
+  position: relative;
+  text-align: center;
+  left: 20px;
+  top: 10px;
+  margin-bottom: 10px;
+`;
 const Notes = () => {
   const [notes, setNotes] = useState();
   const params = useParams();
@@ -66,7 +87,16 @@ const Notes = () => {
   return (
     <Wrapper>
       <NotesList>
-        <WrapperCard> {category_id}</WrapperCard>
+        {notes ? (
+          notes.map((note) => (
+            <WrapperCard key={note.id}>
+              <StyledTitle>{note.title}</StyledTitle>
+              <StyledAvatar src={note.link} />
+            </WrapperCard>
+          ))
+        ) : (
+          <p>No listings found.</p>
+        )}
       </NotesList>
     </Wrapper>
   );

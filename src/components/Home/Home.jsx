@@ -33,6 +33,17 @@ const StyledLink = styled(NavLink)`
     color: hsl(60, 9.1%, 97.8%);
   }
 `;
+
+const StyledCategory = styled.span`
+  color: ${({ $active }) => ($active ? "black" : "hsl(60, 9.1%, 97.8%)")};
+  text-decoration: ${({ $active }) => ($active ? "underline" : "")};
+  font-weight: 600;
+  font-size: ${({ $active }) => ($active ? "24px" : "22px")};
+  background-color: ${({ $active }) => ($active ? "hsl(60, 9.1%, 97.8%)" : "")};
+  margin: 5px;
+  padding: 10px;
+  border-radius: 25px;
+`;
 const Home = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -90,7 +101,12 @@ const Home = () => {
                 style={{ textDecoration: "no ne" }}
                 to={`/notes/${category.id}`}
               >
-                {category.category}
+                {({ isActive }) => (
+                  <StyledCategory $active={isActive}>
+                    {" "}
+                    {category.category}
+                  </StyledCategory>
+                )}
               </StyledLink>
             ))}
           </StyledCategories>

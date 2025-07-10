@@ -33,9 +33,7 @@ const StyledTitle = styled.h1`
   font-size: 22px;
   font-weight: 600;
   color: hsl(60, 9.1%, 97.8%);
-
   text-align: center;
-
   font-family: "Nunito", sans-serif;
 `;
 
@@ -86,11 +84,11 @@ const Notes = () => {
       controller.abort();
     };
   }, [category_id]);
-  console.log(notes);
+  // console.log(notes);
   return (
     <Wrapper>
       <NotesList>
-        {notes ? (
+        {notes?.length > 0 ? (
           notes.map((note) => (
             <WrapperCard key={note.id}>
               <StyledTitle>{note.title}</StyledTitle>
@@ -101,7 +99,7 @@ const Notes = () => {
             </WrapperCard>
           ))
         ) : (
-          <p>No listings found.</p>
+          <StyledTitle>No notes found choosen category.</StyledTitle>
         )}
       </NotesList>
     </Wrapper>

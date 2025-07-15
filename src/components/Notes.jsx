@@ -7,6 +7,7 @@ import {
   useParams,
 } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
+import StyledRemovedNoteButton from "./StyledRemovedNoteButton/StyledRemovedNoteButton";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -38,7 +39,7 @@ const StyledTitle = styled.h1`
 `;
 
 const StyledAvatar = styled.img`
-  width: 250px;
+  width: 280px;
   height: 350px;
   border: 3px solid hsl(60, 9.1%, 97.8%);
   border-radius: 25px;
@@ -48,6 +49,17 @@ const StyledAvatar = styled.img`
   top: 10px;
   margin-bottom: 10px;
 `;
+
+const StyledParagraph = styled.div`
+  font-size: 17px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem /* 32px */;
+  margin-left: 2rem /* 32px */;
+`;
+
 const Notes = () => {
   const [notes, setNotes] = useState();
   const params = useParams();
@@ -93,13 +105,20 @@ const Notes = () => {
             <WrapperCard key={note.id}>
               <StyledTitle>{note.title}</StyledTitle>
               <StyledAvatar src={note.link} />
-              {note.created.length === 10
-                ? formatDate(note)
-                : new Date(note.created).toLocaleDateString()}
+              <StyledParagraph>
+                Created :{" "}
+                <p>
+                  {note.created.length === 10
+                    ? formatDate(note)
+                    : new Date(note.created).toLocaleDateString()}
+                </p>
+              </StyledParagraph>
+              <StyledRemovedNoteButton>Remove</StyledRemovedNoteButton>
+              <br></br>
             </WrapperCard>
           ))
         ) : (
-          <StyledTitle>No notes found choosen category.</StyledTitle>
+          <StyledTitle>No notes found this category.</StyledTitle>
         )}
       </NotesList>
     </Wrapper>

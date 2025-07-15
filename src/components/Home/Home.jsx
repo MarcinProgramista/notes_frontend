@@ -116,6 +116,8 @@ const Home = () => {
 
         <StyledLink onClick={logout}>Log Out</StyledLink>
       </StyledNavbar>
+
+      <button> ➕ Add note</button>
       <Outlet />
     </>
   );

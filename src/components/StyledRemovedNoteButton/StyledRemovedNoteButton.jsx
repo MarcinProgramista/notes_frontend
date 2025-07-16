@@ -7,9 +7,9 @@ const StyledRemovedNoteButton = styled.button`
   color: black;
   border: none;
   border-radius: 50px;
-  font-family: "Montserat", sans-serif;
-  font-weight: 500;
+  font-family: "Montserrat";
   font-size: 16px;
+  font-weight: 600;
   text-transform: uppercase;
 `;
 

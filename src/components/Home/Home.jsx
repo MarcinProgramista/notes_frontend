@@ -3,7 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import AuthContext from "../../context/AuthProvider";
 import axios from "axios";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledNavbar = styled.div`
   display: flex;
@@ -27,6 +27,7 @@ const StyledCategories = styled.div`
 const StyledLink = styled(NavLink)`
   text-decoration: none;
   color: #ffd82b; //hsl(60, 9.1%, 97.8%);
+
   &:focus,
   &:hover {
     text-decoration: none;
@@ -35,14 +36,23 @@ const StyledLink = styled(NavLink)`
 `;
 
 const StyledCategory = styled.span`
-  color: ${({ $active }) => ($active ? "black" : " #ffd82b")};
-  text-decoration: ${({ $active }) => ($active ? "underline" : "")};
+  color: #ffd82b;
+  text-decoration: "";
   font-weight: 600;
-  font-size: ${({ $active }) => ($active ? "24px" : "22px")};
-  background-color: ${({ $active }) => ($active ? "#ffd82b" : "")};
+  font-size: 22px;
+  background-color: "";
   margin: 5px;
   padding: 10px;
   border-radius: 25px;
+  font-family: "Montserrat";
+  ${({ $active }) =>
+    $active &&
+    css`
+      color: black;
+      text-decoration: "underline";
+      font-size: 24px;
+      background-color: #ffd82b;
+    `}
 `;
 const Home = () => {
   const { auth, setAuth } = useContext(AuthContext);

@@ -1,4 +1,10 @@
-import { useNavigate, Link, NavLink, Outlet } from "react-router-dom";
+import {
+  useNavigate,
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+} from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import AuthContext from "../../context/AuthProvider";
 import axios from "axios";
@@ -27,7 +33,7 @@ const StyledCategories = styled.div`
 const StyledLink = styled(NavLink)`
   text-decoration: none;
   color: #ffd82b; //hsl(60, 9.1%, 97.8%);
-
+  font-size: 22px;
   &:focus,
   &:hover {
     text-decoration: none;
@@ -44,16 +50,28 @@ const StyledCategory = styled.span`
   margin: 5px;
   padding: 10px;
   border-radius: 25px;
-  font-family: "Montserrat";
-  ${({ $active }) =>
+
+  ${({ $active, $category }) =>
     $active &&
+    $category === "Notes" &&
     css`
       color: black;
       text-decoration: "underline";
       font-size: 24px;
       background-color: #ffd82b;
     `}
+
+  ${({ $active, $category }) =>
+    $active &&
+    $category === "Films" &&
+    css`
+      color: black;
+      text-decoration: "underline";
+      font-size: 24px;
+      background-color: hsl(196, 83%, 75%);
+    `}
 `;
+
 const Home = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -61,6 +79,13 @@ const Home = () => {
   const user_id = parseInt(JSON.parse(auth.id));
   const [categories, setCategories] = useState();
   const axiosPrivate = useAxiosPrivate();
+  const location = useLocation();
+  const categoryName = location.pathname.slice(
+    location.pathname.length - 5,
+    location.pathname.length
+  );
+
+  console.log(categoryName);
 
   useEffect(() => {
     let isMounted = true;
@@ -109,10 +134,13 @@ const Home = () => {
               <StyledLink
                 key={i}
                 style={{ textDecoration: "no ne" }}
-                to={`/notes/${category.id}`}
+                to={`/notes/${category.id}/${category.category}`}
               >
                 {({ isActive }) => (
-                  <StyledCategory $active={isActive}>
+                  <StyledCategory
+                    $active={isActive}
+                    $category={category.category}
+                  >
                     {" "}
                     {category.category}
                   </StyledCategory>
@@ -127,7 +155,7 @@ const Home = () => {
         <StyledLink onClick={logout}>Log Out</StyledLink>
       </StyledNavbar>
 
-      <button> ➕ Add note</button>
+      <button> + </button>
       <Outlet />
     </>
   );

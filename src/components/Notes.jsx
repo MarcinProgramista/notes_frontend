@@ -69,10 +69,14 @@ const Notes = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const axiosPrivate = useAxiosPrivate();
+
   const formatDate = (note) => {
     const reg = /([0-9]{2})-([0-9]{2})-([0-9]{4})/;
     return note.created.replace(reg, "$1.#2.#3");
   };
+
+  //console.log(location.pathname.slice(10, 15));
+
   useEffect(() => {
     let isMounted = true;
 

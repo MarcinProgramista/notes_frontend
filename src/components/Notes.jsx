@@ -28,23 +28,24 @@ const NotesList = styled.div`
 `;
 
 const WrapperCard = styled.div`
-  width: 320px;
+  width: 300px;
+  text-align: center;
 `;
 const StyledTitle = styled.h1`
   font-size: 22px;
   font-weight: 600;
-  color: hsl(60, 9.1%, 97.8%);
-  text-align: center;
+  color: #ffd82b; //hsl(60, 9.1%, 97.8%);
+  text-align: left;
   font-family: "Nunito", sans-serif;
 `;
 
 const StyledAvatar = styled.img`
-  width: 280px;
+  width: 300px;
   height: 350px;
-  border: 3px solid hsl(60, 9.1%, 97.8%);
+  border: 3px solid #ffd82b; //hsl(60, 9.1%, 97.8%);
   border-radius: 25px;
   position: relative;
-  text-align: center;
+  text-align: left;
   left: 20px;
   top: 10px;
   margin-bottom: 10px;

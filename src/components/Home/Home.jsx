@@ -26,20 +26,20 @@ const StyledCategories = styled.div`
 
 const StyledLink = styled(NavLink)`
   text-decoration: none;
-  color: hsl(60, 9.1%, 97.8%);
+  color: #ffd82b; //hsl(60, 9.1%, 97.8%);
   &:focus,
   &:hover {
     text-decoration: none;
-    color: hsl(60, 9.1%, 97.8%);
+    color: #ffd82b; //hsl(60, 9.1%, 97.8%);
   }
 `;
 
 const StyledCategory = styled.span`
-  color: ${({ $active }) => ($active ? "black" : "hsl(60, 9.1%, 97.8%)")};
+  color: ${({ $active }) => ($active ? "black" : " #ffd82b")};
   text-decoration: ${({ $active }) => ($active ? "underline" : "")};
   font-weight: 600;
   font-size: ${({ $active }) => ($active ? "24px" : "22px")};
-  background-color: ${({ $active }) => ($active ? "hsl(60, 9.1%, 97.8%)" : "")};
+  background-color: ${({ $active }) => ($active ? "#ffd82b" : "")};
   margin: 5px;
   padding: 10px;
   border-radius: 25px;

@@ -11,7 +11,6 @@ const StyledRemovedNoteButton = styled.button`
   font-weight: 500;
   font-size: 16px;
   text-transform: uppercase;
-  margin: 5px;
 `;
 
 export default StyledRemovedNoteButton;

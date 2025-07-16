@@ -35,8 +35,9 @@ const StyledTitle = styled.h1`
   font-size: 22px;
   font-weight: 600;
   color: #ffd82b; //hsl(60, 9.1%, 97.8%);
-  text-align: left;
+  text-align: center;
   font-family: "Nunito", sans-serif;
+  margin-bottom: 10px;
 `;
 
 const StyledAvatar = styled.img`
@@ -46,8 +47,7 @@ const StyledAvatar = styled.img`
   border-radius: 25px;
   position: relative;
   text-align: left;
-  left: 20px;
-  top: 10px;
+
   margin-bottom: 10px;
 `;
 
@@ -58,7 +58,8 @@ const StyledParagraph = styled.div`
   align-items: center;
   justify-content: space-between;
   gap: 1rem /* 32px */;
-  margin-left: 2rem /* 32px */;
+  //margin-left: 1rem /* 32px */;
+  margin-bottom: 10px;
 `;
 
 const Notes = () => {
@@ -115,7 +116,6 @@ const Notes = () => {
                 </p>
               </StyledParagraph>
               <StyledRemovedNoteButton>Remove</StyledRemovedNoteButton>
-              <br></br>
             </WrapperCard>
           ))
         ) : (

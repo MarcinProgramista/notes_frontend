@@ -32,17 +32,59 @@ const StyledCategories = styled.div`
 
 const StyledLink = styled(NavLink)`
   text-decoration: none;
-  color: #ffd82b; //hsl(60, 9.1%, 97.8%);
+  ${({ $category }) =>
+    $category === "Notes" &&
+    css`
+      color: #ffd82b;
+    `}
+  ${({ $category }) =>
+    $category === "Films" &&
+    css`
+      color: hsl(196, 83%, 75%);
+    `}
+   ${({ $category }) =>
+    $category === "Books" &&
+    css`
+      color: hsl(106, 47%, 64%);
+    `}
   font-size: 22px;
   &:focus,
   &:hover {
     text-decoration: none;
-    color: #ffd82b; //hsl(60, 9.1%, 97.8%);
+    ${({ $category }) =>
+      $category === "Notes" &&
+      css`
+        color: #ffd82b;
+      `}
+    ${({ $category }) =>
+      $category === "Films" &&
+      css`
+        color: hsl(196, 83%, 75%);
+      `}
+    ${({ $category }) =>
+      $category === "Books" &&
+      css`
+        color: hsl(106, 47%, 64%);
+      `}
   }
 `;
 
 const StyledCategory = styled.span`
-  color: #ffd82b;
+  ${({ $category }) =>
+    $category === "Notes" &&
+    css`
+      color: #ffd82b;
+    `}
+  ${({ $category }) =>
+    $category === "Films" &&
+    css`
+      color: hsl(196, 83%, 75%);
+    `}
+    ${({ $category }) =>
+    $category === "Books" &&
+    css`
+      color: hsl(106, 47%, 64%);
+    `}
   text-decoration: "";
   font-weight: 600;
   font-size: 22px;
@@ -62,6 +104,16 @@ const StyledCategory = styled.span`
     `}
 
   ${({ $active, $category }) =>
+    $active &&
+    $category === "Books" &&
+    css`
+      color: black;
+      text-decoration: "underline";
+      font-size: 24px;
+      background-color: hsl(106, 47%, 64%);
+    `}
+
+     ${({ $active, $category }) =>
     $active &&
     $category === "Films" &&
     css`
@@ -85,7 +137,7 @@ const Home = () => {
     location.pathname.length
   );
 
-  console.log(categoryName);
+  //console.log(categoryName);
 
   useEffect(() => {
     let isMounted = true;
@@ -127,7 +179,9 @@ const Home = () => {
   return (
     <>
       <StyledNavbar>
-        <StyledLink to="/">Home</StyledLink>
+        <StyledLink $category={categoryName} to="/">
+          Home
+        </StyledLink>
         {categories?.length ? (
           <StyledCategories>
             {categories.map((category, i) => (
@@ -137,11 +191,7 @@ const Home = () => {
                 to={`/notes/${category.id}/${category.category}`}
               >
                 {({ isActive }) => (
-                  <StyledCategory
-                    $active={isActive}
-                    $category={category.category}
-                  >
-                    {" "}
+                  <StyledCategory $active={isActive} $category={categoryName}>
                     {category.category}
                   </StyledCategory>
                 )}
@@ -152,7 +202,9 @@ const Home = () => {
           <p>No catgories to display</p>
         )}
 
-        <StyledLink onClick={logout}>Log Out</StyledLink>
+        <StyledLink $category={categoryName} onClick={logout}>
+          Log Out
+        </StyledLink>
       </StyledNavbar>
 
       <button> + </button>

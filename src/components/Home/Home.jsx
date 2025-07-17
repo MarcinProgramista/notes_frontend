@@ -31,6 +31,7 @@ const StyledCategories = styled.div`
 `;
 
 const StyledLink = styled(NavLink)`
+  color: #ffd82b;
   text-decoration: none;
   ${({ $category }) =>
     $category === "Notes" &&

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import {
   Navigate,
   useLocation,
@@ -38,6 +38,22 @@ const StyledTitle = styled.h1`
   text-align: center;
   font-family: "Nunito", sans-serif;
   margin-bottom: 10px;
+
+  ${({ $category }) =>
+    $category === "Notes" &&
+    css`
+      color: #ffd82b;
+    `}
+  ${({ $category }) =>
+    $category === "Films" &&
+    css`
+      color: hsl(196, 83%, 75%);
+    `}
+  ${({ $category }) =>
+    $category === "Books" &&
+    css`
+      color: hsl(106, 47%, 64%);
+    `}
 `;
 
 const StyledAvatar = styled.img`
@@ -49,6 +65,21 @@ const StyledAvatar = styled.img`
   text-align: left;
 
   margin-bottom: 10px;
+  ${({ $category }) =>
+    $category === "Notes" &&
+    css`
+      border: 3px solid #ffd82b;
+    `}
+  ${({ $category }) =>
+    $category === "Films" &&
+    css`
+      border: 3px solid hsl(196, 83%, 75%);
+    `}
+  ${({ $category }) =>
+    $category === "Books" &&
+    css`
+      border: 3px solid hsl(106, 47%, 64%);
+    `}
 `;
 
 const StyledParagraph = styled.div`
@@ -70,6 +101,10 @@ const Notes = () => {
   const location = useLocation();
   const axiosPrivate = useAxiosPrivate();
 
+  const categoryName = location.pathname.slice(
+    location.pathname.length - 5,
+    location.pathname.length
+  );
   const formatDate = (note) => {
     const reg = /([0-9]{2})-([0-9]{2})-([0-9]{4})/;
     return note.created.replace(reg, "$1.#2.#3");
@@ -109,8 +144,8 @@ const Notes = () => {
         {notes?.length > 0 ? (
           notes.map((note) => (
             <WrapperCard key={note.id}>
-              <StyledTitle>{note.title}</StyledTitle>
-              <StyledAvatar src={note.link} />
+              <StyledTitle $category={categoryName}>{note.title}</StyledTitle>
+              <StyledAvatar src={note.link} $category={categoryName} />
               <StyledParagraph>
                 Created :{" "}
                 <p>

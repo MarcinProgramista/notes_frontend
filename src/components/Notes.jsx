@@ -91,6 +91,22 @@ const StyledParagraph = styled.div`
   gap: 1rem /* 32px */;
   //margin-left: 1rem /* 32px */;
   margin-bottom: 10px;
+
+  ${({ $category }) =>
+    $category === "Notes" &&
+    css`
+      color: #ffd82b;
+    `}
+  ${({ $category }) =>
+    $category === "Films" &&
+    css`
+      color: hsl(196, 83%, 75%);
+    `}
+  ${({ $category }) =>
+    $category === "Books" &&
+    css`
+      color: hsl(106, 47%, 64%);
+    `}
 `;
 
 const Notes = () => {
@@ -146,7 +162,7 @@ const Notes = () => {
             <WrapperCard key={note.id}>
               <StyledTitle $category={categoryName}>{note.title}</StyledTitle>
               <StyledAvatar src={note.link} $category={categoryName} />
-              <StyledParagraph>
+              <StyledParagraph $category={categoryName}>
                 Created :{" "}
                 <p>
                   {note.created.length === 10

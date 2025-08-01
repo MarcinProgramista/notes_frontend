@@ -154,7 +154,9 @@ const Notes = () => {
                     : new Date(note.created).toLocaleDateString()}
                 </p>
               </StyledParagraph>
-              <StyledRemovedNoteButton>Remove</StyledRemovedNoteButton>
+              <StyledRemovedNoteButton $category={categoryName}>
+                Remove
+              </StyledRemovedNoteButton>
             </WrapperCard>
           ))
         ) : (

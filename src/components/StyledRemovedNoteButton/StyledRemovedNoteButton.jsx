@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const StyledRemovedNoteButton = styled.button`
   background-color: #ffd82b;
@@ -11,6 +11,22 @@ const StyledRemovedNoteButton = styled.button`
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
+
+  ${({ $category }) =>
+    $category === "Notes" &&
+    css`
+      background-color: #ffd82b;
+    `}
+  ${({ $category }) =>
+    $category === "Films" &&
+    css`
+      background-color: hsl(196, 83%, 75%);
+    `}
+  ${({ $category }) =>
+    $category === "Books" &&
+    css`
+      background-color: hsl(106, 47%, 64%);
+    `}
 `;
 
 export default StyledRemovedNoteButton;

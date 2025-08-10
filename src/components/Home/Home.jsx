@@ -207,8 +207,6 @@ const Home = () => {
           Log Out
         </StyledLink>
       </StyledNavbar>
-
-      <button> + </button>
       <Outlet />
     </>
   );

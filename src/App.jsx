@@ -7,7 +7,7 @@ import Missing from "./components/Missing/Missing.jsx";
 import Home from "./components/Home/Home.jsx";
 import RequireAuth from "./components/RequireAuth/RequireAuth.jsx";
 import Notes from "./components/Notes.jsx";
-import { GlobalStyle } from "./theme/GlobalStyle.jsx";
+import { GlobalStyle } from "./theme/GlobalStyle.js";
 
 function App() {
   return (

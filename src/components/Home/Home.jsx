@@ -10,6 +10,10 @@ import AuthContext from "../../context/AuthProvider";
 import axios from "axios";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import styled, { css } from "styled-components";
+//import ButtonIcon from "../ButtonIcon/ButtonIcon";
+import Books from "../../assets/books-svgrepo-com.png";
+import Films from "../../assets/video-svgrepo-com.png";
+import Notes from "../../assets/pen-nib-svgrepo-com.png";
 
 const StyledNavbar = styled.div`
   display: flex;
@@ -33,6 +37,8 @@ const StyledCategories = styled.div`
 const StyledLink = styled(NavLink)`
   color: #ffd82b;
   text-decoration: none;
+  text-align: end;
+
   ${({ $category }) =>
     $category === "Notes" &&
     css`
@@ -85,6 +91,9 @@ const StyledCategory = styled.span`
     $category === "Books" &&
     css`
       color: hsl(106, 47%, 64%);
+      background-image: url(${({ $icon }) => $icon});
+      background-size: 40%;
+      background-repeat: no-repeat;
     `}
   text-decoration: "";
   font-weight: 600;
@@ -103,7 +112,6 @@ const StyledCategory = styled.span`
       font-size: 24px;
       background-color: #ffd82b;
     `}
-
   ${({ $active, $category }) =>
     $active &&
     $category === "Books" &&
@@ -112,9 +120,11 @@ const StyledCategory = styled.span`
       text-decoration: "underline";
       font-size: 24px;
       background-color: hsl(106, 47%, 64%);
+      background-image: url(${({ $icon }) => $icon});
+      background-size: 40%;
+      background-repeat: no-repeat;
     `}
-
-     ${({ $active, $category }) =>
+    ${({ $active, $category }) =>
     $active &&
     $category === "Films" &&
     css`
@@ -122,9 +132,75 @@ const StyledCategory = styled.span`
       text-decoration: "underline";
       font-size: 24px;
       background-color: hsl(196, 83%, 75%);
-    `}
+    `};
 `;
 
+const StyledParagraph = styled.div`
+  font-size: 17px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px /* 32px */;
+  //margin-left: 1rem /* 32px */;
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 20px;
+
+  ${({ $category }) =>
+    $category === "Notes" &&
+    css`
+      color: #ffd82b;
+    `}
+  ${({ $category }) =>
+    $category === "Films" &&
+    css`
+      color: hsl(196, 83%, 75%);
+    `}
+  ${({ $category }) =>
+    $category === "Books" &&
+    css`
+      color: hsl(106, 47%, 64%);
+    `}
+`;
+const ButtonIcon = styled.button`
+  width: 60px;
+  height: 60px;
+  border-radius: 20px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: 70%;
+  background-image: url(${({ $icon }) => $icon});
+  background-color: white;
+
+  ${({ $active, $category }) =>
+    $active &&
+    $category === "Books" &&
+    css`
+      border: 6px solid hsl(106, 47%, 64%);
+      background-size: 80%;
+      width: 70px;
+      height: 70px;
+    `}
+  ${({ $active, $category }) =>
+    $active &&
+    $category === "Notes" &&
+    css`
+      border: 6px solid #ffd82b;
+      background-size: 80%;
+      width: 70px;
+      height: 70px;
+    `}
+    ${({ $active, $category }) =>
+    $active &&
+    $category === "Films" &&
+    css`
+      border: 8px solid hsl(196, 83%, 75%);
+      background-size: 80%;
+      width: 70px;
+      height: 70px;
+    `}
+`;
 const Home = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -186,17 +262,45 @@ const Home = () => {
         {categories?.length ? (
           <StyledCategories>
             {categories.map((category, i) => (
-              <StyledLink
-                key={i}
-                style={{ textDecoration: "no ne" }}
-                to={`/notes/${category.id}/${category.category}`}
-              >
-                {({ isActive }) => (
-                  <StyledCategory $active={isActive} $category={categoryName}>
-                    {category.category}
-                  </StyledCategory>
-                )}
-              </StyledLink>
+              <StyledParagraph>
+                <StyledLink
+                  key={i}
+                  style={{ textDecoration: "no ne" }}
+                  to={`/notes/${category.id}/${category.category}`}
+                >
+                  {({ isActive }) => (
+                    <StyledParagraph>
+                      {category.category === "Books" && (
+                        <ButtonIcon
+                          $icon={Books}
+                          $active={isActive}
+                          $category={categoryName}
+                        ></ButtonIcon>
+                      )}
+                      {category.category === "Notes" && (
+                        <ButtonIcon
+                          $icon={Notes}
+                          $active={isActive}
+                          $category={categoryName}
+                        ></ButtonIcon>
+                      )}
+                      {category.category === "Films" && (
+                        <ButtonIcon
+                          $icon={Films}
+                          $active={isActive}
+                          $category={categoryName}
+                        ></ButtonIcon>
+                      )}
+                      <StyledCategory
+                        $category={categoryName}
+                        $active={isActive}
+                      >
+                        {category.category}
+                      </StyledCategory>
+                    </StyledParagraph>
+                  )}
+                </StyledLink>
+              </StyledParagraph>
             ))}
           </StyledCategories>
         ) : (

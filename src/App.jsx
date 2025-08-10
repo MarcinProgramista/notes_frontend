@@ -13,6 +13,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
+
       <Routes>
         <Route path="/">
           <Route path="login" element={<Login />} />
@@ -25,8 +26,7 @@ function App() {
               <Route path="/notes/:category_id/Notes" element={<Notes />} />
             </Route>
           </Route>
-
-          <Route path="*" element={<Missing />} />
+          <Route path="*" element={<Missing />} />\{" "}
         </Route>
       </Routes>
     </>

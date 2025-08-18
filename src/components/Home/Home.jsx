@@ -15,6 +15,7 @@ import Books from "../../assets/books-svgrepo-com.png";
 import Films from "../../assets/video-svgrepo-com.png";
 import Notes from "../../assets/pen-nib-svgrepo-com.png";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
+import HomeIcon from "../../assets/home-1-svgrepo-com.png";
 
 const StyledNavbar = styled.div`
   display: flex;
@@ -134,6 +135,15 @@ const StyledCategory = styled.span`
       font-size: 24px;
       background-color: hsl(196, 83%, 75%);
     `};
+  ${({ $active, $category }) =>
+    $active &&
+    $category === "Home" &&
+    css`
+      color: black;
+      text-decoration: "underline";
+      font-size: 24px;
+      background-color: #ffd82b;
+    `};
 `;
 
 const StyledParagraph = styled.div`
@@ -220,9 +230,24 @@ const Home = () => {
   return (
     <>
       <StyledNavbar>
-        <StyledLink $category={categoryName} to="/">
-          Home
-        </StyledLink>
+        <StyledParagraph>
+          <StyledLink $category={categoryName} to="/">
+            {({ isActive }) => (
+              <StyledParagraph>
+                <ButtonIcon
+                  $icon={HomeIcon}
+                  $active={isActive}
+                  $category="Home"
+                ></ButtonIcon>
+
+                <StyledCategory $category="Home" $active={isActive}>
+                  Home
+                </StyledCategory>
+              </StyledParagraph>
+            )}
+          </StyledLink>
+        </StyledParagraph>
+
         {categories?.length ? (
           <StyledCategories>
             {categories.map((category, i) => (

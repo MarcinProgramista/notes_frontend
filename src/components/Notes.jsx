@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import {
   Navigate,
+  NavLink,
+  Outlet,
   useLocation,
   useNavigate,
   useParams,
@@ -126,7 +128,7 @@ const Notes = () => {
     return note.created.replace(reg, "$1.#2.#3");
   };
 
-  //console.log(location.pathname.slice(10, 15));
+  //console.log(location.pathname + `/note/id`);
 
   useEffect(() => {
     let isMounted = true;
@@ -155,31 +157,41 @@ const Notes = () => {
   }, [category_id]);
   // console.log(notes);
   return (
-    <Wrapper>
-      <NotesList>
-        {notes?.length > 0 ? (
-          notes.map((note) => (
-            <WrapperCard key={note.id}>
-              <StyledTitle $category={categoryName}>{note.title}</StyledTitle>
-              <StyledAvatar src={note.link} $category={categoryName} />
-              <StyledParagraph $category={categoryName}>
-                Created :{" "}
-                <p>
-                  {note.created.length === 10
-                    ? formatDate(note)
-                    : new Date(note.created).toLocaleDateString()}
-                </p>
-              </StyledParagraph>
-              <StyledRemovedNoteButton $category={categoryName}>
-                Remove
-              </StyledRemovedNoteButton>
-            </WrapperCard>
-          ))
-        ) : (
-          <StyledTitle>No notes found this category.</StyledTitle>
-        )}
-      </NotesList>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <NotesList>
+          {notes?.length > 0 ? (
+            notes.map((note) => (
+              <NavLink
+                style={{ textDecoration: "none" }}
+                to={`${location.pathname}/note/${note.id}`}
+              >
+                <WrapperCard key={note.id}>
+                  <StyledTitle $category={categoryName}>
+                    {note.title}
+                  </StyledTitle>
+                  <StyledAvatar src={note.link} $category={categoryName} />
+                  <StyledParagraph $category={categoryName}>
+                    Created :{" "}
+                    <p>
+                      {note.created.length === 10
+                        ? formatDate(note)
+                        : new Date(note.created).toLocaleDateString()}
+                    </p>
+                  </StyledParagraph>
+                  <StyledRemovedNoteButton $category={categoryName}>
+                    Remove
+                  </StyledRemovedNoteButton>
+                </WrapperCard>
+              </NavLink>
+            ))
+          ) : (
+            <StyledTitle>No notes found this category.</StyledTitle>
+          )}
+        </NotesList>
+      </Wrapper>
+      <Outlet />
+    </>
   );
 };
 

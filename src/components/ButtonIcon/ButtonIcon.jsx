@@ -38,6 +38,16 @@ const ButtonIcon = styled.button`
       width: 70px;
       height: 70px;
     `}
+
+    ${({ $active, $category }) =>
+    $active &&
+    $category === "Home" &&
+    css`
+      border: 8px solid #ffd82b;
+      background-size: 80%;
+      width: 70px;
+      height: 70px;
+    `}
 `;
 
 export default ButtonIcon;

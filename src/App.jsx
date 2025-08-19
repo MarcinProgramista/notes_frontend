@@ -21,10 +21,7 @@ function App() {
           <Route path="linkpage" element={<LinkPage />} />
           <Route element={<RequireAuth />}>
             <Route path="/" element={<Home />}>
-              <Route
-                path="/notes/:category_id/Books"
-                element={<Notes />}
-              ></Route>
+              <Route path="/notes/:category_id/Books" element={<Notes />} />
               <Route path="/notes/:category_id/Films" element={<Notes />} />
               <Route path="/notes/:category_id/Notes" element={<Notes />} />
               <Route

@@ -128,7 +128,7 @@ const Notes = () => {
     return note.created.replace(reg, "$1.#2.#3");
   };
 
-  //console.log(location.pathname + `/note/id`);
+  //console.log(location.pathname.length);
 
   useEffect(() => {
     let isMounted = true;

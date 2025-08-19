@@ -16,6 +16,7 @@ import Films from "../../assets/video-svgrepo-com.png";
 import Notes from "../../assets/pen-nib-svgrepo-com.png";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import HomeIcon from "../../assets/home-1-svgrepo-com.png";
+import LogoutIcon from "../../assets/logout-bracket-svgrepo-com.png";
 
 const StyledNavbar = styled.div`
   display: flex;
@@ -296,9 +297,23 @@ const Home = () => {
           <p>No catgories to display</p>
         )}
 
-        <StyledLink $category={categoryName} onClick={logout}>
-          Log Out
-        </StyledLink>
+        <StyledParagraph>
+          <StyledLink $category={categoryName} onClick={logout}>
+            {({ isActive }) => (
+              <StyledParagraph>
+                <ButtonIcon
+                  $icon={LogoutIcon}
+                  $active={isActive}
+                  $category="Logout"
+                ></ButtonIcon>
+
+                <StyledCategory $category="Logout" $active={isActive}>
+                  Log Out
+                </StyledCategory>
+              </StyledParagraph>
+            )}
+          </StyledLink>
+        </StyledParagraph>
       </StyledNavbar>
       <Outlet />
     </>

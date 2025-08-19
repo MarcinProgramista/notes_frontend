@@ -8,6 +8,7 @@ import Home from "./components/Home/Home.jsx";
 import RequireAuth from "./components/RequireAuth/RequireAuth.jsx";
 import Notes from "./components/Notes.jsx";
 import { GlobalStyle } from "./theme/GlobalStyle.js";
+import DetialsNote from "./components/DetailsNote/DetialsNote.jsx";
 
 function App() {
   return (
@@ -26,7 +27,15 @@ function App() {
               <Route path="/notes/:category_id/Notes" element={<Notes />} />
               <Route
                 path="/notes/:category_id/Books/note/:id"
-                element={<h1>hell</h1>}
+                element={<DetialsNote />}
+              />
+              <Route
+                path="/notes/:category_id/Films/note/:id"
+                element={<DetialsNote />}
+              />
+              <Route
+                path="/notes/:category_id/Notes/note/:id"
+                element={<DetialsNote />}
               />
             </Route>
           </Route>

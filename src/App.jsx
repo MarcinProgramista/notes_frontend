@@ -25,19 +25,31 @@ function App() {
               <Route path="/notes/:category_id/Books" element={<Notes />} />
               <Route path="/notes/:category_id/Films" element={<Notes />} />
               <Route path="/notes/:category_id/Notes" element={<Notes />} />
-              <Route
-                path="/notes/:category_id/Books/note/:id"
-                element={<DetialsNote />}
-              />
-              <Route
-                path="/notes/:category_id/Films/note/:id"
-                element={<DetialsNote />}
-              />
-              <Route
-                path="/notes/:category_id/Notes/note/:id"
-                element={<DetialsNote />}
-              />
             </Route>
+          </Route>
+          <Route element={<RequireAuth />}>
+            <Route
+              path="/notes/:category_id/Notes/note/:id"
+              element={<DetialsNote />}
+            />
+            <Route
+              path="/notes/:category_id/Films/note/:id"
+              element={
+                <>
+                  <Home />
+                  <DetialsNote />
+                </>
+              }
+            />
+            <Route
+              path="/notes/:category_id/Books/note/:id"
+              element={
+                <>
+                  <Home $active $category="Books" />
+                  <DetialsNote />
+                </>
+              }
+            />
           </Route>
           <Route path="*" element={<Missing />} />\{" "}
         </Route>

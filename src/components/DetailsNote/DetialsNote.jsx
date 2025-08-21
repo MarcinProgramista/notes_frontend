@@ -1,17 +1,98 @@
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Navigate, NavLink, useLocation, useParams } from "react-router-dom";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import styled, { css } from "styled-components";
+import axios from "../../api/axios";
+import StyledTitle from "../StyledTitle/StyledTitle";
+
+const StyledAvatar = styled.img`
+  width: 300px;
+  height: 350px;
+  box-shadow: 0 10px 30px -10px 3px solid #ffd82b; //hsl(60, 9.1%, 97.8%);
+  border-radius: 25px;
+  position: relative;
+  text-align: left;
+
+  margin-bottom: 10px;
+  ${({ $category }) =>
+    $category === "Notes" &&
+    css`
+      box-shadow: 0 10px 30px -10px #ffd82b;
+    `}
+  ${({ $category }) =>
+    $category === "Films" &&
+    css`
+      box-shadow: 0 10px 30px -10px hsl(196, 83%, 75%);
+    `}
+  ${({ $category }) =>
+    $category === "Books" &&
+    css`
+      box-shadow: 0 10px 30px -10px hsl(106, 47%, 64%);
+    `}
+`;
 
 const DetialsNote = () => {
+  const [note, setNote] = useState();
   const location = useLocation();
-
-  console.log(location.pathname.indexOf("Books"));
+  const axiosPrivate = useAxiosPrivate();
+  const params = useParams();
+  const note_id = params.id;
 
   const positionCategoryAndNameCategory = (path) => {
-    if (path.indexOf("Books") > 0) return [path.indexOf("Books"), "Books"];
-    if (path.indexOf("Films") > 0) return [path.indexOf("Films"), "Films"];
-    if (path.indexOf("") > 0) return [path.indexOf("Notes"), "Notes"];
+    if (path.includes("Books") > 0) return "Books";
+    if (path.includes("Films") > 0) return "Films";
+    if (path.includes("Notes") > 0) return "Notes";
+    if (path.includes("Notes") < 0) return "Notes";
   };
 
-  return <div>{positionCategoryAndNameCategory(location.pathname)[1]}</div>;
+  useEffect(() => {
+    let isMounted = true;
+
+    const controller = new AbortController();
+
+    const getNote = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3700/api/notes/note/${note_id}`,
+          {
+            signal: controller.signal,
+          }
+        );
+
+        isMounted && setNote(response.data);
+        controller.abort();
+      } catch (err) {
+        //console.log(err);
+        //Navigate("/login", { state: { from: location }, replace: true });
+      }
+    };
+
+    getNote();
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, []);
+
+  console.log(location.pathname);
+  return (
+    <>
+      <StyledTitle
+        $big={true}
+        $category={positionCategoryAndNameCategory(location.pathname)}
+      >
+        {note?.title}
+      </StyledTitle>
+
+      <p>
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates
+        fugit minima veritatis dolore, atque illo sequi excepturi fugiat
+        deleniti! Autem doloribus quia delectus aspernatur amet quasi, assumenda
+        cumque hic culpa.
+      </p>
+      <NavLink to="/">go back</NavLink>
+    </>
+  );
 };
 
 export default DetialsNote;

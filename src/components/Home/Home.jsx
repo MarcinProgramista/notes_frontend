@@ -38,7 +38,7 @@ const StyledCategories = styled.div`
 `;
 
 const StyledLink = styled(NavLink)`
-  color: #ffd82b;
+  color: hsl(24, 5.4%, 63.9%);
   text-decoration: none;
   text-align: end;
 
@@ -184,12 +184,15 @@ const Home = () => {
   const [categories, setCategories] = useState();
   const axiosPrivate = useAxiosPrivate();
   const location = useLocation();
-  const categoryName = location.pathname.slice(
-    location.pathname.length - 5,
-    location.pathname.length
-  );
 
-  //console.log(categoryName);
+  const positionCategoryAndNameCategory = (path) => {
+    if (path.indexOf("Books") > 0) return [path.indexOf("Books"), "Books"];
+    if (path.indexOf("Films") > 0) return [path.indexOf("Films"), "Films"];
+    if (path.indexOf("Notes") > 0) return [path.indexOf("Notes"), "Notes"];
+    if (path.indexOf("Notes") < 0) return [path.indexOf("Notes"), "Notes"];
+  };
+
+  const categoryName = positionCategoryAndNameCategory(location.pathname)[1];
 
   useEffect(() => {
     let isMounted = true;
@@ -252,7 +255,7 @@ const Home = () => {
         {categories?.length ? (
           <StyledCategories>
             {categories.map((category, i) => (
-              <StyledParagraph>
+              <StyledParagraph key={i}>
                 <StyledLink
                   key={i}
                   style={{ textDecoration: "no ne" }}

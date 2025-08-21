@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import StyledRemovedNoteButton from "./StyledRemovedNoteButton/StyledRemovedNoteButton";
+import StyledTitle from "./StyledTitle/StyledTitle";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -33,12 +34,41 @@ const WrapperCard = styled.div`
   width: 300px;
   text-align: center;
 `;
-const StyledTitle = styled.h1`
-  font-size: 22px;
-  font-weight: 600;
-  color: #ffd82b; //hsl(60, 9.1%, 97.8%);
-  text-align: center;
-  font-family: "Nunito", sans-serif;
+
+const StyledAvatar = styled.img`
+  width: 300px;
+  height: 350px;
+  box-shadow: 0 10px 30px -10px 3px solid #ffd82b; //hsl(60, 9.1%, 97.8%);
+  border-radius: 25px;
+  position: relative;
+  text-align: left;
+
+  margin-bottom: 10px;
+  ${({ $category }) =>
+    $category === "Notes" &&
+    css`
+      box-shadow: 0 10px 30px -10px #ffd82b;
+    `}
+  ${({ $category }) =>
+    $category === "Films" &&
+    css`
+      box-shadow: 0 10px 30px -10px hsl(196, 83%, 75%);
+    `}
+  ${({ $category }) =>
+    $category === "Books" &&
+    css`
+      box-shadow: 0 10px 30px -10px hsl(106, 47%, 64%);
+    `}
+`;
+
+const StyledParagraph = styled.div`
+  font-size: 17px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem /* 32px */;
+  //margin-left: 1rem /* 32px */;
   margin-bottom: 10px;
 
   ${({ $category }) =>
@@ -58,39 +88,11 @@ const StyledTitle = styled.h1`
     `}
 `;
 
-const StyledAvatar = styled.img`
-  width: 300px;
-  height: 350px;
-  border: 3px solid #ffd82b; //hsl(60, 9.1%, 97.8%);
-  border-radius: 25px;
-  position: relative;
-  text-align: left;
-
-  margin-bottom: 10px;
-  ${({ $category }) =>
-    $category === "Notes" &&
-    css`
-      border: 3px solid #ffd82b;
-    `}
-  ${({ $category }) =>
-    $category === "Films" &&
-    css`
-      border: 3px solid hsl(196, 83%, 75%);
-    `}
-  ${({ $category }) =>
-    $category === "Books" &&
-    css`
-      border: 3px solid hsl(106, 47%, 64%);
-    `}
-`;
-
-const StyledParagraph = styled.div`
+const StyledParagraphInfo = styled.p`
   font-size: 17px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem /* 32px */;
+  text-align: center;
+  margin-bottom: 700px;
+
   //margin-left: 1rem /* 32px */;
   margin-bottom: 10px;
 
@@ -155,9 +157,17 @@ const Notes = () => {
       controller.abort();
     };
   }, [category_id]);
-  // console.log(notes);
+  //console.log(notes);
   return (
     <>
+      {" "}
+      {notes?.length > 0 && (
+        <h4>
+          <StyledParagraphInfo $category={categoryName}>
+            Number of {categoryName}: {notes.length}
+          </StyledParagraphInfo>
+        </h4>
+      )}
       <Wrapper>
         <NotesList>
           {notes?.length > 0 ? (
@@ -165,6 +175,7 @@ const Notes = () => {
               <NavLink
                 style={{ textDecoration: "none" }}
                 to={`${location.pathname}/note/${note.id}`}
+                key={note.id}
               >
                 <WrapperCard key={note.id}>
                   <StyledTitle $category={categoryName}>

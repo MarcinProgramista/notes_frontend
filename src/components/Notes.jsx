@@ -11,6 +11,9 @@ import {
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import StyledRemovedNoteButton from "./StyledRemovedNoteButton/StyledRemovedNoteButton";
 import StyledTitle from "./StyledTitle/StyledTitle";
+import ButtonIcon from "./ButtonIcon/ButtonIcon";
+import plusIcon from "../assets/plus-svgrepo-com.png";
+import ButtonIconPlus from "./ButtonIconPlus/ButtonIconPlus";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -21,6 +24,7 @@ const Wrapper = styled.div`
   padding-left: 2rem /* 32px */;
   padding-top: 1rem /* 16px */;
   padding-bottom: 1rem /* 16px */;
+  position: relative;
 `;
 
 const NotesList = styled.div`
@@ -112,7 +116,16 @@ const StyledParagraphInfo = styled.p`
       color: hsl(106, 47%, 64%);
     `}
 `;
+const StyledButtonIcon = styled(ButtonIconPlus)`
+  position: fixed;
+  bottom: 40px;
 
+  right: 100px;
+  background-color: ${({ activecolor, theme }) => theme[activecolor]};
+  background-size: 35%;
+  border-radius: 50px;
+  z-index: 10000;
+`;
 const Notes = () => {
   const [notes, setNotes] = useState();
   const params = useParams();
@@ -200,6 +213,10 @@ const Notes = () => {
             <StyledTitle>No notes found this category.</StyledTitle>
           )}
         </NotesList>
+        <StyledButtonIcon
+          $icon={plusIcon}
+          $category={categoryName}
+        ></StyledButtonIcon>
       </Wrapper>
       <Outlet />
     </>

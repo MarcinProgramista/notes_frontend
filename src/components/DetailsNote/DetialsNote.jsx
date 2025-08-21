@@ -76,15 +76,20 @@ const InnerWrapper = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      background-color: beige;
+      background-color: black;
     `}
   ${({ $row }) =>
     $row &&
     css`
       display: flex;
       flex-direction: row;
-      /* justify-content: space-between; */
-      background-color: beige;
+      align-items: center;
+      //justify-content: space-between;
+      gap: 6rem /* 32px */;
+      padding-left: 2rem /* 32px */;
+      padding-right: 2rem /* 32px */;
+      padding-top: 1rem /* 16px */;
+      padding-bottom: 1rem /* 16px */;
     `}
 
     ${({ $category }) =>
@@ -101,6 +106,43 @@ const InnerWrapper = styled.div`
     $category === "Books" &&
     css`
       background-color: hsl(106, 47%, 64%);
+    `}
+`;
+
+const StyledHeading = styled.h1`
+  margin: 5px 0 0;
+  color: black;
+  font-size: 1.5rem;
+  font-weight: 600;
+`;
+const DateInfo = styled.p`
+  margin: 0 0 10px;
+  font-weight: 600;
+  color: black;
+  font-size: 0.8rem;
+`;
+
+const StyledCommentNotes = styled.i`
+  max-width: 700px;
+  position: relative;
+  left: 0px;
+  font-size: 1.2rem;
+  color: #242424;
+
+  ${({ $category }) =>
+    $category === "Notes" &&
+    css`
+      color: #ffd82b;
+    `}
+  ${({ $category }) =>
+    $category === "Films" &&
+    css`
+      color: hsl(196, 83%, 75%);
+    `}
+  ${({ $category }) =>
+    $category === "Books" &&
+    css`
+      color: hsl(106, 47%, 64%);
     `}
 `;
 const DetialsNote = () => {
@@ -145,8 +187,16 @@ const DetialsNote = () => {
       controller.abort();
     };
   }, []);
-
-  console.log(params);
+  function CDate(note) {
+    if (typeof note?.created === "string") {
+      const date = new Date(note?.created);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return day + "." + month + "." + year;
+    }
+  }
+  //console.log(params);
   return (
     <>
       <StyledWrapper
@@ -156,21 +206,35 @@ const DetialsNote = () => {
         <InnerWrapper
           $category={positionCategoryAndNameCategory(location.pathname)}
         >
-          <StyledTitle
-            $big={true}
-            $category={positionCategoryAndNameCategory(location.pathname)}
-          >
-            {note?.title}
-          </StyledTitle>
+          <StyledHeading>{note?.title}</StyledHeading>
+          <DateInfo>{CDate(note)}</DateInfo>
+        </InnerWrapper>
+        <InnerWrapper $flex>
+          <InnerWrapper $row>
+            {positionCategoryAndNameCategory(location.pathname) === "Films" && (
+              <StyledAvatar src={note?.link} />
+            )}
+            {positionCategoryAndNameCategory(location.pathname) === "Books" && (
+              <StyledAvatar src={note?.link} />
+            )}
+            {positionCategoryAndNameCategory(location.pathname) !== "Films" &&
+            positionCategoryAndNameCategory(location.pathname) !== "Books" ? (
+              <StyledCommentNotes
+                $category={positionCategoryAndNameCategory(location.pathname)}
+              >
+                {note?.content}{" "}
+              </StyledCommentNotes>
+            ) : (
+              <StyledCommentNotes
+                $category={positionCategoryAndNameCategory(location.pathname)}
+              >
+                {note?.content}{" "}
+              </StyledCommentNotes>
+              // <StyledComment>{note.content}</StyledComment> <h1>
+            )}
+          </InnerWrapper>
         </InnerWrapper>
       </StyledWrapper>
-
-      <p>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates
-        fugit minima veritatis dolore, atque illo sequi excepturi fugiat
-        deleniti! Autem doloribus quia delectus aspernatur amet quasi, assumenda
-        cumque hic culpa.
-      </p>
 
       <StyledRemovedNoteButton
         $category={positionCategoryAndNameCategory(location.pathname)}

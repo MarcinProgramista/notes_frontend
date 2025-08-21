@@ -4,6 +4,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import styled, { css } from "styled-components";
 import axios from "../../api/axios";
 import StyledTitle from "../StyledTitle/StyledTitle";
+import StyledRemovedNoteButton from "../StyledRemovedNoteButton/StyledRemovedNoteButton";
 
 const StyledAvatar = styled.img`
   width: 300px;
@@ -74,7 +75,7 @@ const DetialsNote = () => {
     };
   }, []);
 
-  console.log(location.pathname);
+  console.log(params);
   return (
     <>
       <StyledTitle
@@ -90,7 +91,19 @@ const DetialsNote = () => {
         deleniti! Autem doloribus quia delectus aspernatur amet quasi, assumenda
         cumque hic culpa.
       </p>
-      <NavLink to="/">go back</NavLink>
+
+      <StyledRemovedNoteButton
+        $category={positionCategoryAndNameCategory(location.pathname)}
+      >
+        <NavLink
+          style={{ textDecoration: "none" }}
+          to={`/notes/${params.category_id}/${positionCategoryAndNameCategory(
+            location.pathname
+          )}`}
+        >
+          go back
+        </NavLink>
+      </StyledRemovedNoteButton>
     </>
   );
 };

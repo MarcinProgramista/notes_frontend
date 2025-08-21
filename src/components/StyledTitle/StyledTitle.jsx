@@ -3,10 +3,15 @@ import styled, { css } from "styled-components";
 const StyledTitle = styled.h1`
   font-size: 22px;
   font-weight: 600;
-  color: #ffd82b; //hsl(60, 9.1%, 97.8%);
-  text-align: center;
-  font-family: "Nunito", sans-serif;
-  margin-bottom: 10px;
+  color: black;
+  text-align: start;
+  border-radius: 20px;
+  padding: 15px;
+  margin: 15px;
+  //height: 50px;
+  font-family: "Montserrat", sans-serif;
+  background-color: hsl(0, 0%, 10%);
+  //margin-bottom: 1px;
   ${({ $big }) =>
     $big &&
     css`
@@ -15,17 +20,17 @@ const StyledTitle = styled.h1`
   ${({ $category }) =>
     $category === "Notes" &&
     css`
-      color: #ffd82b;
+      background-color: #ffd82b;
     `}
   ${({ $category }) =>
     $category === "Films" &&
     css`
-      color: hsl(196, 83%, 75%);
+      background-color: hsl(196, 83%, 75%);
     `}
   ${({ $category }) =>
     $category === "Books" &&
     css`
-      color: hsl(106, 47%, 64%);
+      background-color: hsl(106, 47%, 64%);
     `}
 `;
 

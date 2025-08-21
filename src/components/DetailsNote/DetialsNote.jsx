@@ -60,6 +60,49 @@ const StyledWrapper = styled.div`
     `}
 `;
 
+const InnerWrapper = styled.div`
+  position: relative;
+  padding: 17px 30px;
+
+  border-radius: 20px;
+
+  :first-of-type {
+    z-index: 999;
+  }
+
+  ${({ $flex }) =>
+    $flex &&
+    css`
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: beige;
+    `}
+  ${({ $row }) =>
+    $row &&
+    css`
+      display: flex;
+      flex-direction: row;
+      /* justify-content: space-between; */
+      background-color: beige;
+    `}
+
+    ${({ $category }) =>
+    $category === "Notes" &&
+    css`
+      background-color: #ffd82b;
+    `}
+  ${({ $category }) =>
+    $category === "Films" &&
+    css`
+      background-color: hsl(196, 83%, 75%);
+    `}
+  ${({ $category }) =>
+    $category === "Books" &&
+    css`
+      background-color: hsl(106, 47%, 64%);
+    `}
+`;
 const DetialsNote = () => {
   const [note, setNote] = useState();
   const location = useLocation();
@@ -109,12 +152,17 @@ const DetialsNote = () => {
       <StyledWrapper
         $category={positionCategoryAndNameCategory(location.pathname)}
       >
-        <StyledTitle
-          $big={true}
+        {" "}
+        <InnerWrapper
           $category={positionCategoryAndNameCategory(location.pathname)}
         >
-          {note?.title}
-        </StyledTitle>
+          <StyledTitle
+            $big={true}
+            $category={positionCategoryAndNameCategory(location.pathname)}
+          >
+            {note?.title}
+          </StyledTitle>
+        </InnerWrapper>
       </StyledWrapper>
 
       <p>

@@ -15,6 +15,8 @@ import ButtonIcon from "./ButtonIcon/ButtonIcon";
 import plusIcon from "../assets/plus-svgrepo-com.png";
 import ButtonIconPlus from "./ButtonIconPlus/ButtonIconPlus";
 
+import NewNoteItem from "./NewNoteItem/NewNoteItem";
+
 const Wrapper = styled.div`
   width: 100%;
   margin-right: auto;
@@ -218,6 +220,7 @@ const Notes = () => {
           $category={categoryName}
         ></StyledButtonIcon>
       </Wrapper>
+      <NewNoteItem />
       <Outlet />
     </>
   );

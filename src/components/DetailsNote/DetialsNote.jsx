@@ -233,21 +233,20 @@ const DetialsNote = () => {
               // <StyledComment>{note.content}</StyledComment> <h1>
             )}
           </InnerWrapper>
+          <StyledRemovedNoteButton
+            $category={positionCategoryAndNameCategory(location.pathname)}
+          >
+            <NavLink
+              style={{ textDecoration: "none" }}
+              to={`/notes/${
+                params.category_id
+              }/${positionCategoryAndNameCategory(location.pathname)}`}
+            >
+              go back
+            </NavLink>
+          </StyledRemovedNoteButton>
         </InnerWrapper>
       </StyledWrapper>
-
-      <StyledRemovedNoteButton
-        $category={positionCategoryAndNameCategory(location.pathname)}
-      >
-        <NavLink
-          style={{ textDecoration: "none" }}
-          to={`/notes/${params.category_id}/${positionCategoryAndNameCategory(
-            location.pathname
-          )}`}
-        >
-          go back
-        </NavLink>
-      </StyledRemovedNoteButton>
     </>
   );
 };

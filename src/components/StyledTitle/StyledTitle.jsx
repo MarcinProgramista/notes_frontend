@@ -35,6 +35,13 @@ const StyledTitle = styled.h1`
       background-color: hsl(106, 47%, 64%);
       color: black;
     `}
+
+    ${({ $add, $category }) =>
+    $add &&
+    $category === "Books" &&
+    css`
+      color: hsl(106, 47%, 64%);
+    `}
 `;
 
 export default StyledTitle;

@@ -220,7 +220,7 @@ const Notes = () => {
           $category={categoryName}
         ></StyledButtonIcon>
       </Wrapper>
-      <NewNoteItem />
+      <NewNoteItem $category={categoryName} />
       <Outlet />
     </>
   );

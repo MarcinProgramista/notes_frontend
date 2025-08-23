@@ -1,8 +1,9 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import StyledRemovedNoteButton from "../StyledRemovedNoteButton/StyledRemovedNoteButton";
 
 const StyledWrapper = styled.div`
-  border-left: 10px solid ${({ theme, activecolor }) => theme[activecolor]};
+  //border-left: 10px solid ${({ theme, activecolor }) => theme[activecolor]};
   z-index: 9999;
   position: fixed;
   display: flex;
@@ -12,11 +13,89 @@ const StyledWrapper = styled.div`
   top: 0;
   height: 100vh;
   width: 680px;
-  background-color: white;
+  background-color: hsl(0, 0%, 10%);
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+
+  ${({ $category }) =>
+    $category === "Notes" &&
+    css`
+      border-left: 10px solid #ffd82b;
+    `}
+  ${({ $category }) =>
+    $category === "Films" &&
+    css`
+      border-left: 10px solid hsl(196, 83%, 75%);
+    `}
+  ${({ $category }) =>
+    $category === "Books" &&
+    css`
+      border-left: 10px solid hsl(106, 47%, 64%);
+    `}
 `;
-const NewNoteItem = () => {
-  return <StyledWrapper>hello</StyledWrapper>;
+const Input = styled.input`
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  border: none;
+  font-family: "Montserrat", serif;
+  width: 400px;
+  margin-left: 5px;
+  background-color: beige;
+  background-position: "15px 60%";
+  &:focus {
+    ${({ $category }) =>
+      $category === "Notes" &&
+      css`
+        outline: 3px solid #ffd82b;
+      `}
+    ${({ $category }) =>
+      $category === "Films" &&
+      css`
+        outline: 3px solid hsl(196, 83%, 75%);
+      `}
+  ${({ $category }) =>
+      $category === "Books" &&
+      css`
+        outline: 3px solid hsl(106, 47%, 64%);
+      `}
+  }
+`;
+
+const StyledTextArea = styled(Input)`
+  margin: 10px 0 100px;
+  border-radius: 20px;
+  height: 40vh;
+`;
+const NewNoteItem = ({ $category }) => {
+  const categoryName = $category.slice(
+    $category.length - 5,
+    $category.length - 1
+  );
+
+  return (
+    <>
+      <StyledWrapper $category={$category}>
+        <Input $category={$category} placeholder="title" />
+        {($category === "Films" || $category === "Books") && (
+          <Input
+            $category={$category}
+            placeholder={`Put link to cover of ${categoryName}`}
+          />
+        )}
+
+        <StyledTextArea
+          as="textarea"
+          $category={$category}
+          placeholder="Description"
+        />
+        <StyledRemovedNoteButton $category={$category}>
+          Add note
+        </StyledRemovedNoteButton>
+      </StyledWrapper>
+      ;
+    </>
+  );
 };
 
 export default NewNoteItem;

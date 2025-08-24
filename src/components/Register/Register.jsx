@@ -18,6 +18,12 @@ import Wrapper from "../ui/Wrapper";
 const LabelWrapper = styled.label`
   margin-top: 1rem;
 `;
+const StyledHeader = styled.h1`
+  color: hsl(60, 9.1%, 97.8%);
+  text-align: center;
+  margin-block: 0.67em;
+  font-size: 2em;
+`;
 
 const StyledFontAwesomeIconHideName = styled(FontAwesomeIcon)`
   color: ${({ $validName }) => ($validName ? "limegreen" : "")};
@@ -35,9 +41,28 @@ const StyledFontAwesomeIconInvalidName = styled(FontAwesomeIcon)`
 const StyledInput = styled.input`
   margin-top: 1rem;
   font-family: "Nunito", sans-serif;
-  font-size: 22px;
+
+  //font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
+  display: flex;
+  width: 100%;
+  border: 2px solid hsl(39, 89%, 67%);
+  border-width: 0px;
+  background: hsl(0, 0%, 20%);
+  color: #fff;
+  font-size: 0.875rem /* 14px */;
+  line-height: 1.25rem /* 20px */;
+  &:focus {
+    outline: none;
+    box-shadow: 0px 0px 4px hsl(39, 89%, 67%);
+    background: hsl(0, 0%, 20%);
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  &::placeholder {
+    color: hsl(39, 89%, 67%);
+  }
 `;
 
 const ParagraphUser = styled.p`
@@ -278,7 +303,7 @@ function Register() {
           <ParagraphError ref={errRef} $errMsg={errMsg} aria-live="assertive">
             {errMsg}
           </ParagraphError>
-          <h1>Register</h1>
+          <StyledHeader>Register</StyledHeader>
           <FormWrapperRegisterLogin onSubmit={handleSubmit}>
             <LabelWrapper htmlFor="username">
               Username:
@@ -304,6 +329,7 @@ function Register() {
               aria-describedby="uidnote"
               onFocus={() => setUserFocus(true)}
               onBlur={() => setUserFocus(false)}
+              placeholder="Put name .."
             />
             <ParagraphUser
               id="uidnote"
@@ -342,6 +368,7 @@ function Register() {
               aria-describedby="uidnote"
               onFocus={() => setEmailFocus(true)}
               onBlur={() => setEmailFocus(false)}
+              placeholder="Put name .."
             />
             <ParagraphEmail
               id="uidnote"
@@ -384,6 +411,7 @@ function Register() {
               aria-describedby="pwdnote"
               onFocus={() => setPwdFocus(true)}
               onBlur={() => setPwdFocus(false)}
+              placeholder="Put password .."
             />
             <ParagraphPassword
               id="pwdnote"
@@ -426,6 +454,7 @@ function Register() {
               aria-describedby="confirmnote"
               onFocus={() => setMatchFocus(true)}
               onBlur={() => setMatchFocus(false)}
+              placeholder="Put the same password like above.. "
             />
             <ParagraphPasswordConfrim
               id="confirmnote"
@@ -450,8 +479,8 @@ function Register() {
             <br />
             <StyledSpanRegisterLogin className="line">
               {/*put router link here*/}
-              <StyledHrefRegisterLogin href="#">
-                Sign In
+              <StyledHrefRegisterLogin href="/login">
+                Log in
               </StyledHrefRegisterLogin>
             </StyledSpanRegisterLogin>
           </p>

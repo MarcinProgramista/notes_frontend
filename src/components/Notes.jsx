@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import {
   Navigate,
@@ -11,13 +11,47 @@ import {
 import { useOutletContext } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import StyledRemovedNoteButton from "./StyledRemovedNoteButton/StyledRemovedNoteButton";
-import StyledTitle from "./StyledTitle/StyledTitle";
-import ButtonIcon from "./ButtonIcon/ButtonIcon";
+
 import plusIcon from "../assets/plus-svgrepo-com.png";
 import ButtonIconPlus from "./ButtonIconPlus/ButtonIconPlus";
 
 import NewNoteItem from "./NewNoteItem/NewNoteItem";
 
+const StyledTitle = styled.h1`
+  font-size: 26px;
+  font-weight: 600;
+
+  text-align: start;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px;
+  //height: 50px;
+  font-family: "Montserrat", sans-serif;
+  background-color: hsl(0, 0%, 10%);
+  //margin-bottom: 1px;
+
+  ${({ $category }) =>
+    $category === "Notes" &&
+    css`
+      color: #ffd82b;
+    `}
+  ${({ $category }) =>
+    $category === "Films" &&
+    css`
+      color: hsl(196, 83%, 75%);
+    `}
+  ${({ $category }) =>
+    $category === "Books" &&
+    css`
+      color: hsl(106, 47%, 64%);
+    `}
+`;
+const WrpperButtons = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //margin: 10px;
+`;
 const Wrapper = styled.div`
   width: 100%;
   margin-right: auto;
@@ -154,8 +188,23 @@ const Notes = ({}) => {
   }
 
   function handleSubmitNote(note) {
-    console.log(note);
-    setButtonShown(false);
+    fetch(`http://localhost:3700/api/notes/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(note),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+
+        setNotes((prevNote) => [...prevNote, res]);
+        setButtonShown(false);
+        return redirect(`/notes/${Number(res.category_id)}/note/${res.id}`);
+      })
+
+      .catch((err) => console.log(err));
   }
   useEffect(() => {
     let isMounted = true;
@@ -198,29 +247,36 @@ const Notes = ({}) => {
         <NotesList>
           {notes?.length > 0 ? (
             notes.map((note) => (
-              <NavLink
-                style={{ textDecoration: "none" }}
-                to={`${location.pathname}/note/${note.id}`}
-                key={note.id}
-              >
-                <WrapperCard key={note.id}>
-                  <StyledTitle $category={categoryName}>
-                    {note.title}
-                  </StyledTitle>
-                  <StyledAvatar src={note.link} $category={categoryName} />
-                  <StyledParagraph $category={categoryName}>
-                    Created :{" "}
-                    <p>
-                      {note.created.length === 10
-                        ? formatDate(note)
-                        : new Date(note.created).toLocaleDateString()}
-                    </p>
-                  </StyledParagraph>
-                  <StyledRemovedNoteButton $category={categoryName}>
-                    Remove
-                  </StyledRemovedNoteButton>
-                </WrapperCard>
-              </NavLink>
+              <WrpperButtons>
+                <NavLink
+                  style={{ textDecoration: "none" }}
+                  to={`${location.pathname}/note/${note.id}`}
+                  key={note.id}
+                >
+                  <WrapperCard key={note.id}>
+                    <StyledTitle $category={categoryName}>
+                      {note.title}
+                    </StyledTitle>
+                    {note?.link && (
+                      <StyledAvatar src={note.link} $category={categoryName} />
+                    )}
+                    <StyledParagraph $category={categoryName}>
+                      Created :{" "}
+                      <p>
+                        {note.created.length === 10
+                          ? formatDate(note)
+                          : new Date(note.created).toLocaleDateString()}
+                      </p>
+                    </StyledParagraph>
+                    <StyledRemovedNoteButton $category={categoryName}>
+                      more details
+                    </StyledRemovedNoteButton>
+                  </WrapperCard>
+                </NavLink>
+                <StyledRemovedNoteButton $category={categoryName}>
+                  Remove
+                </StyledRemovedNoteButton>
+              </WrpperButtons>
             ))
           ) : (
             <StyledTitle>No notes found this category.</StyledTitle>

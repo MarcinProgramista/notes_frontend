@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const StyledRemovedNoteButton = styled.button`
   background-color: #ffd82b;
-
+  margin-bottom: 5px;
   height: 47px;
   color: black;
   border: none;

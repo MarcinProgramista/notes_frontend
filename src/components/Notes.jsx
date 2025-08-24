@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled, { css } from "styled-components";
 import {
   Navigate,
@@ -8,6 +8,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import StyledRemovedNoteButton from "./StyledRemovedNoteButton/StyledRemovedNoteButton";
 import StyledTitle from "./StyledTitle/StyledTitle";
@@ -128,14 +129,16 @@ const StyledButtonIcon = styled(ButtonIconPlus)`
   border-radius: 50px;
   z-index: 10000;
 `;
-const Notes = () => {
+const Notes = ({}) => {
   const [notes, setNotes] = useState();
   const [buttonShown, setButtonShown] = useState(false);
+  const user_id = useOutletContext();
   const params = useParams();
   const category_id = params.category_id;
   const navigate = useNavigate();
   const location = useLocation();
   const axiosPrivate = useAxiosPrivate();
+  //console.log(user_id);
 
   const categoryName = location.pathname.slice(
     location.pathname.length - 5,
@@ -145,8 +148,6 @@ const Notes = () => {
     const reg = /([0-9]{2})-([0-9]{2})-([0-9]{4})/;
     return note.created.replace(reg, "$1.#2.#3");
   };
-
-  //console.log(location.pathname.length);
 
   function toggle() {
     setButtonShown((buttonShown) => !buttonShown);

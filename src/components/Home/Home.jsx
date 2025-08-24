@@ -193,6 +193,7 @@ const Home = () => {
   };
 
   const categoryName = positionCategoryAndNameCategory(location.pathname)[1];
+  //console.log(user_id);
 
   useEffect(() => {
     let isMounted = true;
@@ -318,7 +319,7 @@ const Home = () => {
           </StyledLink>
         </StyledParagraph>
       </StyledNavbar>
-      <Outlet />
+      <Outlet context={user_id} />
     </>
   );
 };

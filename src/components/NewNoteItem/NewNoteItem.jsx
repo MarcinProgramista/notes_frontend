@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled, { css } from "styled-components";
 import StyledRemovedNoteButton from "../StyledRemovedNoteButton/StyledRemovedNoteButton";
-
+import AuthContext from "../../context/AuthProvider";
+import { useParams } from "react-router-dom";
 const StyledTitle = styled.h1`
   font-size: 26px;
   font-weight: 600;
@@ -101,14 +102,30 @@ const StyledTextArea = styled(Input)`
   height: 40vh;
 `;
 const NewNoteItem = ({ $category, $buttonShown, onNotesSubmit }) => {
+  const { auth, setAuth } = useContext(AuthContext);
   const [inputTitleValue, setInputTitleValue] = useState("");
   const [inputLinkValue, setInputLinkValue] = useState("");
   const [content, setContent] = useState("");
+  const params = useParams();
+  const category_id = params.category_id;
+  const user_id = parseInt(JSON.parse(auth.id));
+  const [userId, setUserId] = useState(user_id);
+  const [categoryId, setCategoryId] = useState(category_id);
+  const [currentDate, setCurrentDate] = useState(CDate());
+
   const categoryName = $category.slice(
     $category.length - 5,
     $category.length - 1
   );
   const lower = $category.toLowerCase();
+  // console.log(params);
+  function CDate() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return day + "." + month + "." + year;
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -116,6 +133,9 @@ const NewNoteItem = ({ $category, $buttonShown, onNotesSubmit }) => {
       title: inputTitleValue.toUpperCase(),
       link: inputLinkValue,
       content: content,
+      user_id: userId,
+      category_id: categoryId,
+      created: currentDate,
     };
 
     onNotesSubmit(note);
@@ -152,7 +172,6 @@ const NewNoteItem = ({ $category, $buttonShown, onNotesSubmit }) => {
             }}
           />
         )}
-
         <StyledTextArea
           as="textarea"
           $category={$category}
@@ -163,6 +182,9 @@ const NewNoteItem = ({ $category, $buttonShown, onNotesSubmit }) => {
             setContent(event.target.value);
           }}
         />
+        <input type="hidden" name="user_id" value={user_id} />
+        <input type="hidden" name="category_id" value={parseInt(category_id)} />
+        <input type="hidden" name="created" value={currentDate} />
         <StyledRemovedNoteButton $small $category={$category}>
           Add note
         </StyledRemovedNoteButton>

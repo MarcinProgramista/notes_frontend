@@ -1,12 +1,16 @@
-import { useLocation, Navigate, Outlet } from "react-router-dom";
+import {
+  useLocation,
+  Navigate,
+  Outlet,
+  useOutletContext,
+} from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import AuthContext from "../../context/AuthProvider";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 const RequireAuth = () => {
   const { auth } = useAuth();
   const location = useLocation();
-  //console.log(auth);
 
   return auth?.email ? (
     <Outlet />

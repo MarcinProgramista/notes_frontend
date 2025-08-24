@@ -122,7 +122,7 @@ const NewNoteItem = ({ $category }) => {
           $category={$category}
           placeholder="Description"
         />
-        <StyledRemovedNoteButton $category={$category}>
+        <StyledRemovedNoteButton $small $category={$category}>
           Add note
         </StyledRemovedNoteButton>
       </StyledWrapper>

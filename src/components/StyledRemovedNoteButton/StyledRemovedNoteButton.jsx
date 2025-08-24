@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 const StyledRemovedNoteButton = styled.button`
   background-color: #ffd82b;
-  width: 300px;
+
   height: 47px;
   color: black;
   border: none;
@@ -11,6 +11,7 @@ const StyledRemovedNoteButton = styled.button`
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
+  width: ${({ $small }) => ($small ? "200px" : "300px")};
 
   ${({ $category }) =>
     $category === "Notes" &&

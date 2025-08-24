@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import StyledRemovedNoteButton from "../StyledRemovedNoteButton/StyledRemovedNoteButton";
 
@@ -46,6 +46,9 @@ const StyledWrapper = styled.div`
   background-color: hsl(0, 0%, 10%);
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
 
+  transform: translate(${({ $buttonShown }) => ($buttonShown ? "0" : "100%")});
+  transition: transform 0.25 ease-in-out;
+
   ${({ $category }) =>
     $category === "Notes" &&
     css`
@@ -56,11 +59,11 @@ const StyledWrapper = styled.div`
     css`
       border-left: 10px solid hsl(196, 83%, 75%);
     `}
-  ${({ $category }) =>
+    ${({ $category }) =>
     $category === "Books" &&
     css`
       border-left: 10px solid hsl(106, 47%, 64%);
-    `}
+    `};
 `;
 const Input = styled.input`
   padding: 10px;
@@ -97,23 +100,53 @@ const StyledTextArea = styled(Input)`
   border-radius: 20px;
   height: 40vh;
 `;
-const NewNoteItem = ({ $category }) => {
+const NewNoteItem = ({ $category, $buttonShown, onNotesSubmit }) => {
+  const [inputTitleValue, setInputTitleValue] = useState("");
+  const [inputLinkValue, setInputLinkValue] = useState("");
   const categoryName = $category.slice(
     $category.length - 5,
     $category.length - 1
   );
   const lower = $category.toLowerCase();
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const note = {
+      title: inputTitleValue.toUpperCase(),
+      link: inputLinkValue,
+    };
+
+    onNotesSubmit(note);
+    setInputTitleValue("");
+    setInputLinkValue("");
+  }
+
   return (
-    <>
-      <StyledWrapper $category={$category}>
+    <form onSubmit={handleSubmit}>
+      <StyledWrapper $category={$category} $buttonShown={$buttonShown}>
         <StyledTitle $category={$category}>
           Creart new item in {lower}
         </StyledTitle>
-        <Input $category={$category} placeholder="title" />
+        <Input
+          $category={$category}
+          placeholder="title"
+          name="title"
+          id="title"
+          value={inputTitleValue}
+          onChange={(event) => {
+            setInputTitleValue(event.target.value);
+          }}
+        />
         {($category === "Films" || $category === "Books") && (
           <Input
             $category={$category}
             placeholder={`Put link to cover of ${categoryName}`}
+            name="link"
+            id="link"
+            value={inputLinkValue}
+            onChange={(event) => {
+              setInputLinkValue(event.target.value);
+            }}
           />
         )}
 
@@ -127,7 +160,7 @@ const NewNoteItem = ({ $category }) => {
         </StyledRemovedNoteButton>
       </StyledWrapper>
       ;
-    </>
+    </form>
   );
 };
 

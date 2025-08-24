@@ -130,6 +130,7 @@ const StyledButtonIcon = styled(ButtonIconPlus)`
 `;
 const Notes = () => {
   const [notes, setNotes] = useState();
+  const [buttonShown, setButtonShown] = useState(false);
   const params = useParams();
   const category_id = params.category_id;
   const navigate = useNavigate();
@@ -147,6 +148,13 @@ const Notes = () => {
 
   //console.log(location.pathname.length);
 
+  function toggle() {
+    setButtonShown((buttonShown) => !buttonShown);
+  }
+
+  function handleSubmitNote(note) {
+    console.log(note);
+  }
   useEffect(() => {
     let isMounted = true;
 
@@ -159,6 +167,7 @@ const Notes = () => {
         });
 
         isMounted && setNotes(response.data);
+        setButtonShown(false);
         controller.abort();
       } catch (err) {
         //console.log(err);
@@ -218,9 +227,16 @@ const Notes = () => {
         <StyledButtonIcon
           $icon={plusIcon}
           $category={categoryName}
+          onClick={toggle}
         ></StyledButtonIcon>
       </Wrapper>
-      <NewNoteItem $category={categoryName} />
+      {buttonShown && (
+        <NewNoteItem
+          $category={categoryName}
+          $buttonShown={buttonShown}
+          onNotesSubmit={handleSubmitNote}
+        />
+      )}
       <Outlet />
     </>
   );

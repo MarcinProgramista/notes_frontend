@@ -159,7 +159,9 @@ const Login = () => {
           <br />
           <StyledSpanRegisterLogin className="line">
             {/*put router link here*/}
-            <StyledHrefRegisterLogin href="#">Register</StyledHrefRegisterLogin>
+            <StyledHrefRegisterLogin href="/register">
+              Register
+            </StyledHrefRegisterLogin>
           </StyledSpanRegisterLogin>
         </p>
       </SectionWrapper>

@@ -154,6 +154,7 @@ const Notes = () => {
 
   function handleSubmitNote(note) {
     console.log(note);
+    setButtonShown(false);
   }
   useEffect(() => {
     let isMounted = true;

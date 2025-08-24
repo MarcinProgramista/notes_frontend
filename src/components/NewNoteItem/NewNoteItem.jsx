@@ -103,6 +103,7 @@ const StyledTextArea = styled(Input)`
 const NewNoteItem = ({ $category, $buttonShown, onNotesSubmit }) => {
   const [inputTitleValue, setInputTitleValue] = useState("");
   const [inputLinkValue, setInputLinkValue] = useState("");
+  const [content, setContent] = useState("");
   const categoryName = $category.slice(
     $category.length - 5,
     $category.length - 1
@@ -114,11 +115,13 @@ const NewNoteItem = ({ $category, $buttonShown, onNotesSubmit }) => {
     const note = {
       title: inputTitleValue.toUpperCase(),
       link: inputLinkValue,
+      content: content,
     };
 
     onNotesSubmit(note);
     setInputTitleValue("");
     setInputLinkValue("");
+    setContent("");
   }
 
   return (
@@ -154,6 +157,11 @@ const NewNoteItem = ({ $category, $buttonShown, onNotesSubmit }) => {
           as="textarea"
           $category={$category}
           placeholder="Description"
+          name="content"
+          value={content}
+          onChange={(event) => {
+            setContent(event.target.value);
+          }}
         />
         <StyledRemovedNoteButton $small $category={$category}>
           Add note

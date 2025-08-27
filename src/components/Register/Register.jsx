@@ -295,7 +295,9 @@ function Register() {
         <SectionWrapper>
           <h1>Success!</h1>
           <p>
-            <StyledHrefRegisterLogin href="#">Sign In</StyledHrefRegisterLogin>
+            <StyledHrefRegisterLogin href="/login">
+              Sign In
+            </StyledHrefRegisterLogin>
           </p>
         </SectionWrapper>
       ) : (

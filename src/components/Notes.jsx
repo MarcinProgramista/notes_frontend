@@ -4,6 +4,7 @@ import {
   Navigate,
   NavLink,
   Outlet,
+  redirect,
   useLocation,
   useNavigate,
   useParams,
@@ -16,6 +17,7 @@ import plusIcon from "../assets/plus-svgrepo-com.png";
 import ButtonIconPlus from "./ButtonIconPlus/ButtonIconPlus";
 
 import NewNoteItem from "./NewNoteItem/NewNoteItem";
+import axios from "axios";
 
 const StyledTitle = styled.h1`
   font-size: 26px;
@@ -197,7 +199,7 @@ const Notes = ({}) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
+        //console.log(res);
 
         setNotes((prevNote) => [...prevNote, res]);
         setButtonShown(false);
@@ -233,6 +235,14 @@ const Notes = ({}) => {
     };
   }, [category_id]);
   //console.log(notes);
+  const handleDelateCilic = (id) => {
+    console.log(id);
+
+    setNotes((prevNotes) => prevNotes.filter((prevNote) => prevNote.id !== id));
+    axios.delete(`http://localhost:3700/api/notes/delete/${id}`, {
+      id: id,
+    });
+  };
   return (
     <>
       {" "}
@@ -247,7 +257,7 @@ const Notes = ({}) => {
         <NotesList>
           {notes?.length > 0 ? (
             notes.map((note) => (
-              <WrpperButtons>
+              <WrpperButtons key={note.id}>
                 <NavLink
                   style={{ textDecoration: "none" }}
                   to={`${location.pathname}/note/${note.id}`}
@@ -273,13 +283,18 @@ const Notes = ({}) => {
                     </StyledRemovedNoteButton>
                   </WrapperCard>
                 </NavLink>
-                <StyledRemovedNoteButton $category={categoryName}>
+                <StyledRemovedNoteButton
+                  onClick={() => handleDelateCilic(note.id)}
+                  $category={categoryName}
+                >
                   Remove
                 </StyledRemovedNoteButton>
               </WrpperButtons>
             ))
           ) : (
-            <StyledTitle>No notes found this category.</StyledTitle>
+            <StyledTitle $category={categoryName}>
+              No notes found this category.
+            </StyledTitle>
           )}
         </NotesList>
         <StyledButtonIcon

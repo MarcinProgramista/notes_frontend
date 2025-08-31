@@ -174,13 +174,11 @@ const Notes = ({}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const axiosPrivate = useAxiosPrivate();
-  //console.log(user_id);
 
   const categoryName = location.pathname.slice(
     location.pathname.length - 5,
     location.pathname.length
   );
-  console.log(categoryName);
 
   const formatDate = (note) => {
     const reg = /([0-9]{2})-([0-9]{2})-([0-9]{4})/;
@@ -228,14 +226,14 @@ const Notes = ({}) => {
       controller.abort();
     };
   }, [category_id]);
-  //console.log(notes);
-  const handleDelateCilic = (id) => {
-    console.log(id);
 
-    setNotes((prevNotes) => prevNotes.filter((prevNote) => prevNote.id !== id));
-    axios.delete(`http://localhost:3700/api/notes/delete/${id}`, {
-      id: id,
-    });
+  const handleDeleteClick = async (id) => {
+    try {
+      await axiosPrivate.delete(`/api/notes/delete/${id}`);
+      setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+    } catch (error) {
+      console.error("Error deleting note:", error);
+    }
   };
   return (
     <>
@@ -278,7 +276,7 @@ const Notes = ({}) => {
                   </WrapperCard>
                 </NavLink>
                 <StyledRemovedNoteButton
-                  onClick={() => handleDelateCilic(note.id)}
+                  onClick={() => handleDeleteClick(note.id)}
                   $category={categoryName}
                 >
                   Remove

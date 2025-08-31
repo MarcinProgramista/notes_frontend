@@ -180,6 +180,8 @@ const Notes = ({}) => {
     location.pathname.length - 5,
     location.pathname.length
   );
+  console.log(categoryName);
+
   const formatDate = (note) => {
     const reg = /([0-9]{2})-([0-9]{2})-([0-9]{4})/;
     return note.created.replace(reg, "$1.#2.#3");
@@ -189,25 +191,17 @@ const Notes = ({}) => {
     setButtonShown((buttonShown) => !buttonShown);
   }
 
-  function handleSubmitNote(note) {
-    fetch(`http://localhost:3700/api/notes/add`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(note),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        //console.log(res);
-
-        setNotes((prevNote) => [...prevNote, res]);
-        setButtonShown(false);
-        return redirect(`/notes/${Number(res.category_id)}/note/${res.id}`);
-      })
-
-      .catch((err) => console.log(err));
-  }
+  const handleSubmitNote = async (note) => {
+    try {
+      const response = await axiosPrivate.post("/api/notes/add", note);
+      setNotes((prevNotes) => [...prevNotes, response.data]);
+      setButtonShown(false);
+      navigate(`/notes/${response.data.category_id}/${categoryName}`);
+    } catch (error) {
+      console.error("Error adding note:", error);
+      setErrMsg("Failed to add note");
+    }
+  };
   useEffect(() => {
     let isMounted = true;
 

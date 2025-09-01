@@ -14,6 +14,7 @@ import StyledButtonRegisterLogin from "../StyledButtonRegirsterLogin/StyledButto
 import StyledSpanRegisterLogin from "../StyledSpanRegisterLogin/StyledSpanRegirsterLogin";
 import StyledHrefRegisterLogin from "../StyledHrefRegisterLogin/StyledHrefRegisterLogin";
 import Wrapper from "../ui/Wrapper";
+import API_CONFIG from "../../config/api";
 
 const LabelWrapper = styled.label`
   margin-top: 1rem;
@@ -255,7 +256,7 @@ function Register() {
     }
     try {
       const response = await axios.post(
-        "http://localhost:3700/api/register",
+        `${API_CONFIG.BASE_URL + API_CONFIG.ENDPOINTS.REGISTER}`,
         JSON.stringify({
           name: user,
           password: pwd,

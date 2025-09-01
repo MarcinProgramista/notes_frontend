@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import styled, { css } from "styled-components";
 import {
   Navigate,
@@ -18,6 +18,7 @@ import ButtonIconPlus from "./ButtonIconPlus/ButtonIconPlus";
 
 import NewNoteItem from "./NewNoteItem/NewNoteItem";
 import axios from "axios";
+import API_CONFIG from "../config/api";
 
 const StyledTitle = styled.h1`
   font-size: 26px;
@@ -180,10 +181,12 @@ const Notes = ({}) => {
     location.pathname.length
   );
 
-  const formatDate = (note) => {
-    const reg = /([0-9]{2})-([0-9]{2})-([0-9]{4})/;
-    return note.created.replace(reg, "$1.#2.#3");
-  };
+  const formatDate = useCallback((dateString) => {
+    if (dateString.length === 10) {
+      return new Date(dateString).toLocaleDateString("pl-PL");
+    }
+    return new Date(dateString).toLocaleDateString("pl-PL");
+  }, []);
 
   function toggle() {
     setButtonShown((buttonShown) => !buttonShown);
@@ -200,32 +203,37 @@ const Notes = ({}) => {
       setErrMsg("Failed to add note");
     }
   };
+
   useEffect(() => {
     let isMounted = true;
-
     const controller = new AbortController();
 
     const getNotes = async () => {
       try {
-        const response = await axiosPrivate.get(`/api/notes/${category_id}`, {
-          signal: controller.signal,
-        });
+        const response = await axiosPrivate.get(
+          `${API_CONFIG.ENDPOINTS.NOTES}/${category_id}`,
+          { signal: controller.signal }
+        );
 
-        isMounted && setNotes(response.data);
-        setButtonShown(false);
-        controller.abort();
+        if (isMounted && !controller.signal.aborted) {
+          setNotes(response.data);
+          setButtonShown(false);
+        }
       } catch (err) {
-        //console.log(err);
-        Navigate("/login", { state: { from: location }, replace: true });
+        if (!controller.signal.aborted && isMounted) {
+          console.error("Failed to fetch notes:", err);
+          navigate("/login", { state: { from: location }, replace: true });
+        }
       }
     };
 
     getNotes();
+
     return () => {
       isMounted = false;
       controller.abort();
     };
-  }, [category_id]);
+  }, [category_id, axiosPrivate, navigate, location]);
 
   const handleDeleteClick = async (id) => {
     try {
@@ -263,7 +271,7 @@ const Notes = ({}) => {
                       <StyledAvatar src={note.link} $category={categoryName} />
                     )}
                     <StyledParagraph $category={categoryName}>
-                      Created :{" "}
+                      Created :
                       <p>
                         {note.created.length === 10
                           ? formatDate(note)

@@ -12,6 +12,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import WrapperSeparator from "../Separator";
 import Wrapper from "../ui/Wrapper";
+import API_CONFIG from "../../config/api";
 
 const LabelWrapper = styled.label`
   margin-top: 1rem;
@@ -78,7 +79,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3700/api/auth/login",
+        `${API_CONFIG.BASE_URL + API_CONFIG.ENDPOINTS.LOGIN}`,
         JSON.stringify({
           email: email,
           password: pwd,

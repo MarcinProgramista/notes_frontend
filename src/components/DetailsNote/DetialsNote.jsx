@@ -5,6 +5,10 @@ import styled, { css } from "styled-components";
 import axios from "../../api/axios";
 import StyledTitle from "../StyledTitle/StyledTitle";
 import StyledRemovedNoteButton from "../StyledRemovedNoteButton/StyledRemovedNoteButton";
+import {
+  getCategoryColor,
+  getCategoryFromPath,
+} from "../../utils/categoryUtils";
 
 const StyledAvatar = styled.img`
   width: 300px;
@@ -152,13 +156,6 @@ const DetialsNote = () => {
   const params = useParams();
   const note_id = params.id;
 
-  const positionCategoryAndNameCategory = (path) => {
-    if (path.includes("Books") > 0) return "Books";
-    if (path.includes("Films") > 0) return "Films";
-    if (path.includes("Notes") > 0) return "Notes";
-    if (path.includes("Notes") < 0) return "Notes";
-  };
-
   useEffect(() => {
     let isMounted = true;
 
@@ -196,51 +193,46 @@ const DetialsNote = () => {
       return day + "." + month + "." + year;
     }
   }
-  //console.log(params);
+  // console.log(getCategoryFromPath(location.pathname));
   return (
     <>
-      <StyledWrapper
-        $category={positionCategoryAndNameCategory(location.pathname)}
-      >
-        {" "}
-        <InnerWrapper
-          $category={positionCategoryAndNameCategory(location.pathname)}
-        >
+      <StyledWrapper $category={getCategoryFromPath(location.pathname)}>
+        <InnerWrapper $category={getCategoryFromPath(location.pathname)}>
           <StyledHeading>{note?.title}</StyledHeading>
           <DateInfo>{CDate(note)}</DateInfo>
         </InnerWrapper>
         <InnerWrapper $flex>
           <InnerWrapper $row>
-            {positionCategoryAndNameCategory(location.pathname) === "Films" && (
+            {getCategoryFromPath(location.pathname) === "Films" && (
               <StyledAvatar src={note?.link} />
             )}
-            {positionCategoryAndNameCategory(location.pathname) === "Books" && (
+            {getCategoryFromPath(location.pathname) === "Books" && (
               <StyledAvatar src={note?.link} />
             )}
-            {positionCategoryAndNameCategory(location.pathname) !== "Films" &&
-            positionCategoryAndNameCategory(location.pathname) !== "Books" ? (
+            {getCategoryFromPath(location.pathname) !== "Films" &&
+            getCategoryFromPath(location.pathname) !== "Books" ? (
               <StyledCommentNotes
-                $category={positionCategoryAndNameCategory(location.pathname)}
+                $category={getCategoryFromPath(location.pathname)}
               >
-                {note?.content}{" "}
+                {note?.content}
               </StyledCommentNotes>
             ) : (
               <StyledCommentNotes
-                $category={positionCategoryAndNameCategory(location.pathname)}
+                $category={getCategoryFromPath(location.pathname)}
               >
-                {note?.content}{" "}
+                {note?.content}
               </StyledCommentNotes>
               // <StyledComment>{note.content}</StyledComment> <h1>
             )}
           </InnerWrapper>
           <StyledRemovedNoteButton
-            $category={positionCategoryAndNameCategory(location.pathname)}
+            $category={getCategoryFromPath(location.pathname)}
           >
             <NavLink
               style={{ textDecoration: "none" }}
-              to={`/notes/${
-                params.category_id
-              }/${positionCategoryAndNameCategory(location.pathname)}`}
+              to={`/notes/${params.category_id}/${getCategoryFromPath(
+                location.pathname
+              )}`}
             >
               go back
             </NavLink>
